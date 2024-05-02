@@ -6,7 +6,8 @@ public class MindMapNodeScript : MonoBehaviour
 {
     private Transform mindMapController;
     [SerializeField] private float orbitRadius = 2f;
-    public MindMapNode mindMapNode;
+    [SerializeField] private Material[] materials;
+    private MindMapNode mindMapNode;
 
     private void Start() {
         mindMapController = findMindMapController(transform);
@@ -46,8 +47,19 @@ public class MindMapNodeScript : MonoBehaviour
             return findMindMapController(currentTransform.parent);
         }
     }
+
+    public void setNodeValue(MindMapNode node) {
+        mindMapNode = node;
+        transform.GetChild(0).GetComponent<MeshRenderer>().material = materials[node.level % materials.Length];
+    }
+
+    public int getNodeLevel() {
+        return mindMapNode.level;
+    }
+
     private void OnMouseDown() {
         Debug.Log(mindMapNode.text);
+        Debug.Log(mindMapNode.level);
         mindMapController.gameObject.GetComponent<ＭindMapController>().selectedNode = gameObject;
     }
 }

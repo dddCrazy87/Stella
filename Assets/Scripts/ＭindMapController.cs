@@ -19,7 +19,7 @@ public class ＭindMapController : MonoBehaviour
         
         Transform go = Instantiate(nodePrefab, father);
 
-        go.GetComponent<MindMapNodeScript>().mindMapNode = node;
+        go.GetComponent<MindMapNodeScript>().setNodeValue(node);
         generateMindMapRec(node, go.transform);
     }
     
@@ -33,7 +33,7 @@ public class ＭindMapController : MonoBehaviour
 
         for (int i = 0; i < node.children.Length; i ++) {
             Transform childGo = Instantiate(nodePrefab, father);
-            childGo.GetComponent<MindMapNodeScript>().mindMapNode = node.children[i];
+            childGo.GetComponent<MindMapNodeScript>().setNodeValue(node.children[i]);
             childrenGo.Add(childGo);
         }
         
@@ -51,7 +51,9 @@ public class ＭindMapController : MonoBehaviour
             return;
         }
         Debug.Log(selectedNode.name);
-        Instantiate(nodePrefab, selectedNode.transform);
+        Transform go = Instantiate(nodePrefab, selectedNode.transform);
+        int fatehrLevel = selectedNode.GetComponent<MindMapNodeScript>().getNodeLevel();
+        go.GetComponent<MindMapNodeScript>().setNodeValue(new("new node", fatehrLevel+1));
         selectedNode.GetComponent<MindMapNodeScript>().rearrange();
     }
 }
