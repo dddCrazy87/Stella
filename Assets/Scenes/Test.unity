@@ -867,7 +867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mindMapProjs: {fileID: 11400000, guid: b5a71895188c14ee99e35790d2bc877f, type: 2}
   selectedNode: {fileID: 0}
-  nodePrefab: {fileID: 1245543696135220984, guid: aa79ff9281e414171a98ee6b1854c4b1, type: 3}
+  nodePrefab: {fileID: 4520616765818558937, guid: aa79ff9281e414171a98ee6b1854c4b1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
