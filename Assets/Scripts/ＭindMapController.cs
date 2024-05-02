@@ -13,6 +13,7 @@ public class ＭindMapController : MonoBehaviour
     void Start() {
         rootNode = mindMapProjs.getCurrentProj();
         generateMindMap(rootNode, transform);
+        Time.timeScale = 0.3f;
     }
     
     private void generateMindMap(MindMapNode node, Transform father) {
@@ -55,5 +56,12 @@ public class ＭindMapController : MonoBehaviour
         int fatehrLevel = selectedNode.GetComponent<MindMapNodeScript>().getNodeLevel();
         go.GetComponent<MindMapNodeScript>().setNodeValue(new("new node", fatehrLevel+1));
         selectedNode.GetComponent<MindMapNodeScript>().rearrange();
+    }
+
+    public void revolveSelectedNode(int dir) {
+        if (selectedNode == null) {
+            return;
+        }
+        selectedNode.GetComponent<MindMapNodeScript>().revolve(dir);
     }
 }

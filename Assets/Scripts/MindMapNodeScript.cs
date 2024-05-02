@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,10 +26,9 @@ public class MindMapNodeScript : MonoBehaviour
         float angleStep = 360f / (cnt-1);
         for(int i = 1; i < cnt; i ++) {
             float angle = i * angleStep;
-            Quaternion rotation = Quaternion.Euler(0, angle, 0);
             Vector3 pos = calculatePositionOnCircle(angle);
-            Transform tf = transform.GetChild(i).transform;
-            tf.SetPositionAndRotation(pos, rotation);
+            Transform go = transform.GetChild(i).transform;
+            go.position = pos;
         }
     }
 
@@ -61,5 +61,40 @@ public class MindMapNodeScript : MonoBehaviour
         Debug.Log(mindMapNode.text);
         Debug.Log(mindMapNode.level);
         mindMapController.gameObject.GetComponent<ＭindMapController>().selectedNode = gameObject;
+    }
+
+    private Coroutine coroutine;
+    public void revolve(int dir) {
+        
+        if (dir != 1 && dir != -1) {
+            Debug.Log("parameter should be 1 or -1.");
+            return;
+        }
+        if (transform.childCount <= 2) {
+            return;
+        }
+        
+        float angleStep = 360f / (transform.childCount - 1);
+
+        if (coroutine != null) {
+            StopCoroutine(coroutine);
+        }
+        
+        coroutine = StartCoroutine(revolveCoroutine(dir, angleStep));
+    }
+
+    IEnumerator revolveCoroutine(int dir, float angleStep) {
+        
+        Quaternion rotation = Quaternion.Euler(0, dir, 0);
+        float start = transform.rotation.eulerAngles.y;
+        float end = start;
+        
+        while (Math.Abs(end - start) < angleStep) {
+            transform.rotation *= rotation;
+            end -= 1;
+            yield return null;
+        }
+        rotation= Quaternion.Euler(0, start + angleStep * dir, 0);
+        transform.rotation = rotation;
     }
 }
