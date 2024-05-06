@@ -1,42 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MindMapNodeScript : MonoBehaviour
 {
-    private Transform mindMapController;
+    private MindMapController mindMapController;
     [SerializeField] private float orbitRadius = 2f;
-    [SerializeField] private Material[] materials;
-    private MindMapNode mindMapNode;
+    public MindMapNode mindMapNode;
 
     private void Start() {
-        mindMapController = findMindMapController(transform);
-    }
-
-    public void rearrange() {
-        int cnt = transform.childCount;
-
-        if (cnt == 2) {
-            Vector3 pos = transform.position; pos.y -= 1.5f;
-            transform.GetChild(1).transform.position = pos;
-            return;
-        }
-
-        float angleStep = 360f / (cnt-1);
-        for(int i = 1; i < cnt; i ++) {
-            float angle = i * angleStep;
-            Vector3 pos = calculatePositionOnCircle(angle);
-            Transform go = transform.GetChild(i).transform;
-            go.position = pos;
-        }
-    }
-
-    private Vector3 calculatePositionOnCircle(float angle)
-    {
-        float x = Mathf.Sin(angle * Mathf.Deg2Rad) * orbitRadius;
-        float z = Mathf.Cos(angle * Mathf.Deg2Rad) * orbitRadius;
-        return new Vector3(x + transform.position.x,  + transform.position.y - 1.5f, z + transform.position.z);
+        mindMapController = findMindMapController(transform).GetComponent<MindMapController>();
     }
 
     private Transform findMindMapController (Transform currentTransform) {
@@ -48,19 +23,32 @@ public class MindMapNodeScript : MonoBehaviour
         }
     }
 
-    public void setNodeValue(MindMapNode node) {
-        mindMapNode = node;
-        transform.GetChild(0).GetComponent<MeshRenderer>().material = materials[node.level % materials.Length];
+    public void rearrange() {
+        Quaternion rotation = transform.rotation;
+        int cnt = transform.childCount;
+
+        if (cnt <= 2) {
+            Vector3 pos = transform.position; pos.y -= 1.5f;
+            transform.GetChild(1).transform.position = pos;
+            transform.GetChild(1).transform.rotation = rotation;
+            return;
+        }
+
+        float angleStep = 360f / (cnt-1);
+        for(int i = 1; i < cnt; i ++) {
+            float angle = i * angleStep + rotation.eulerAngles.y;
+            Vector3 pos = calculatePositionOnCircle(angle);
+            Transform go = transform.GetChild(i).transform;
+            go.position = pos;
+            go.rotation = Quaternion.Euler(0, angle, 0);
+        }
     }
 
-    public int getNodeLevel() {
-        return mindMapNode.level;
-    }
-
-    private void OnMouseDown() {
-        Debug.Log(mindMapNode.text);
-        Debug.Log(mindMapNode.level);
-        mindMapController.gameObject.GetComponent<ＭindMapController>().selectedNode = gameObject;
+    private Vector3 calculatePositionOnCircle(float angle)
+    {
+        float x = Mathf.Sin(angle * Mathf.Deg2Rad) * orbitRadius;
+        float z = Mathf.Cos(angle * Mathf.Deg2Rad) * orbitRadius;
+        return new Vector3(x + transform.position.x,  + transform.position.y - 1.5f, z + transform.position.z);
     }
 
     private Coroutine coroutine;
@@ -96,5 +84,11 @@ public class MindMapNodeScript : MonoBehaviour
         }
         rotation= Quaternion.Euler(0, start + angleStep * dir, 0);
         transform.rotation = rotation;
+    }
+
+    private void OnMouseDown() {
+        Debug.Log(mindMapNode.text);
+        Debug.Log(mindMapNode.children.Count);
+        mindMapController.selectedNode = gameObject;
     }
 }

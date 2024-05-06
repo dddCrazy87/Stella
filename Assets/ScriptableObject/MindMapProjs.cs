@@ -7,15 +7,15 @@ public class MindMapNode {
     public string text;
     public int level;
     public string[] questions;
-    public MindMapNode[] children;
+    public List<MindMapNode> children;
 
     public MindMapNode(string nodeText, int nodeLevel) {
         text = nodeText;
         level = nodeLevel;
-        children = new MindMapNode[] {};
+        children = new List<MindMapNode>();
     }
 
-    public MindMapNode(string nodeText, int nodeLevel, MindMapNode[] childrenNode) {
+    public MindMapNode(string nodeText, int nodeLevel, List<MindMapNode> childrenNode) {
         text = nodeText;
         level = nodeLevel;
         children = childrenNode;
@@ -26,21 +26,21 @@ public class MindMapNode {
 public class MindMapProjs : ScriptableObject
 {
     private MindMapNode[] mindMapProjs = new MindMapNode[] {
-        new("a", 0),
-        new("b", 0, new MindMapNode[] {
-            new("b.1", 1),
-            new("b.2", 1)
+        new ("a", 0),
+        new ("b", 0, new List<MindMapNode> {
+            new ("b.1", 1),
+            new ("b.2", 1)
         }),
-        new("c", 0, new MindMapNode[] {
-            new("c.1", 1, new MindMapNode[] {
-                new("c.1.1", 2)
+        new ("c", 0, new List<MindMapNode> {
+            new ("c.1", 1, new List<MindMapNode> {
+                new ("c.1.1", 2)
             }),
-            new("c.2", 1),
-            new("c.3", 1, new MindMapNode[] {
-                new("c.3.1", 2),
-                new("c.3.2", 2),
-                new("c.3.3", 2),
-            }),
+            new ("c.2", 1),
+            new ("c.3", 1, new List<MindMapNode> {
+                new ("c.3.1", 2),
+                new ("c.3.2", 2),
+                new ("c.3.3", 2)
+            })
         }),
     };
 

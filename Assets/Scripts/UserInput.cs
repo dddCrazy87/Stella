@@ -5,7 +5,7 @@ using UnityEngine;
 public class UserInput : MonoBehaviour
 {
     [SerializeField] private GameObject camera_EditingMindMap;
-    [SerializeField] private ＭindMapController mindMapController;
+    [SerializeField] private MindMapController mindMapController;
     [SerializeField] private float cameraShift = 1.5f;
     void Update() {
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
