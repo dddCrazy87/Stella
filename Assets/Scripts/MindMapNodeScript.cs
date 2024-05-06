@@ -7,8 +7,12 @@ using UnityEngine;
 public class MindMapNodeScript : MonoBehaviour
 {
     private MindMapController mindMapController;
+    [SerializeField] private GameObject canvas;
+    private string answer, question;
     [SerializeField] private float orbitRadius = 2f;
-    public MindMapNode mindMapNode;
+    [SerializeField] private int otherChildren = 0;
+    [SerializeField] private float nodeBetween = 1.5f;
+    public MindMapNode node;
 
     private void Start() {
         mindMapController = findMindMapController(transform).GetComponent<MindMapController>();
@@ -27,28 +31,26 @@ public class MindMapNodeScript : MonoBehaviour
         Quaternion rotation = transform.rotation;
         int cnt = transform.childCount;
 
-        if (cnt <= 2) {
-            Vector3 pos = transform.position; pos.y -= 1.5f;
-            transform.GetChild(1).transform.position = pos;
-            transform.GetChild(1).transform.rotation = rotation;
+        if (cnt <= otherChildren + 1) {
+            Vector3 pos = transform.position; pos.y -= nodeBetween;
+            transform.GetChild(otherChildren).transform.SetPositionAndRotation(pos, rotation);
             return;
         }
 
-        float angleStep = 360f / (cnt-1);
-        for(int i = 1; i < cnt; i ++) {
-            float angle = i * angleStep + rotation.eulerAngles.y;
+        float angleStep = 360f / (cnt-otherChildren);
+        for(int i = otherChildren; i < cnt; i ++) {
+            float angle = (i - otherChildren) * angleStep;
             Vector3 pos = calculatePositionOnCircle(angle);
             Transform go = transform.GetChild(i).transform;
             go.position = pos;
-            go.rotation = Quaternion.Euler(0, angle, 0);
+            go.rotation = Quaternion.Euler(0, angle + rotation.eulerAngles.y, 0);
         }
     }
 
-    private Vector3 calculatePositionOnCircle(float angle)
-    {
+    private Vector3 calculatePositionOnCircle(float angle) {
         float x = Mathf.Sin(angle * Mathf.Deg2Rad) * orbitRadius;
         float z = Mathf.Cos(angle * Mathf.Deg2Rad) * orbitRadius;
-        return new Vector3(x + transform.position.x,  + transform.position.y - 1.5f, z + transform.position.z);
+        return new Vector3(x + transform.position.x,  + transform.position.y - nodeBetween, z + transform.position.z);
     }
 
     private Coroutine coroutine;
@@ -58,11 +60,11 @@ public class MindMapNodeScript : MonoBehaviour
             Debug.Log("parameter should be 1 or -1.");
             return;
         }
-        if (transform.childCount <= 2) {
+        if (transform.childCount <= otherChildren + 1) {
             return;
         }
         
-        float angleStep = 360f / (transform.childCount - 1);
+        float angleStep = 360f / (transform.childCount - otherChildren);
 
         if (coroutine != null) {
             StopCoroutine(coroutine);
@@ -87,8 +89,7 @@ public class MindMapNodeScript : MonoBehaviour
     }
 
     private void OnMouseDown() {
-        Debug.Log(mindMapNode.text);
-        Debug.Log(mindMapNode.children.Count);
+        print("now: " + node.text + " cnt: " + node.children.Count);
         mindMapController.selectedNode = gameObject;
     }
 }

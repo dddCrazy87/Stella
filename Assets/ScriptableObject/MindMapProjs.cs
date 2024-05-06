@@ -9,16 +9,36 @@ public class MindMapNode {
     public string[] questions;
     public List<MindMapNode> children;
 
+    public MindMapNode() {
+        text = "root";
+        level = 0;
+        questions = new string[] { "寫下你的主題" };
+        children = new();
+    }
+
     public MindMapNode(string nodeText, int nodeLevel) {
         text = nodeText;
         level = nodeLevel;
+        questions = generateQuestion();
         children = new List<MindMapNode>();
     }
 
     public MindMapNode(string nodeText, int nodeLevel, List<MindMapNode> childrenNode) {
         text = nodeText;
         level = nodeLevel;
+        questions = generateQuestion();
         children = childrenNode;
+    }
+
+    private string[] generateQuestion() {
+        string[] result = new string[5] {
+            "你對" + text + "的感想11111",
+            "你對" + text + "的感想22222",
+            "你對" + text + "的感想33333",
+            "你對" + text + "的感想44444",
+            "你對" + text + "的感想55555"
+        };
+        return result;
     }
 }
 
@@ -26,7 +46,7 @@ public class MindMapNode {
 public class MindMapProjs : ScriptableObject
 {
     private MindMapNode[] mindMapProjs = new MindMapNode[] {
-        new ("a", 0),
+        new (),
         new ("b", 0, new List<MindMapNode> {
             new ("b.1", 1),
             new ("b.2", 1)

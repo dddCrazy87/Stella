@@ -21,8 +21,8 @@ public class MindMapController : MonoBehaviour
         
         Transform go = Instantiate(nodePrefab, father);
         go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[0];
-        go.GetComponent<MindMapNodeScript>().mindMapNode = rootNode;
-        generateMindMapRec(node, go.transform);
+        go.GetComponent<MindMapNodeScript>().node = rootNode;
+        generateMindMapRec(node, go);
     }
     
     private void generateMindMapRec(MindMapNode node, Transform father) {
@@ -36,7 +36,7 @@ public class MindMapController : MonoBehaviour
         for (int i = 0; i < node.children.Count; i ++) {
             Transform childGo = Instantiate(nodePrefab, father);
             childGo.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[node.children[i].level % nodeMaterials.Length];
-            childGo.GetComponent<MindMapNodeScript>().mindMapNode = node.children[i];
+            childGo.GetComponent<MindMapNodeScript>().node = node.children[i];
             childrenGo.Add(childGo);
         }
         
@@ -55,10 +55,10 @@ public class MindMapController : MonoBehaviour
         }
         selectedNode.transform.rotation = Quaternion.identity;
         Transform go = Instantiate(nodePrefab, selectedNode.transform);
-        int level = selectedNode.GetComponent<MindMapNodeScript>().mindMapNode.level + 1;
+        int level = selectedNode.GetComponent<MindMapNodeScript>().node.level + 1;
         MindMapNode newNode = new("new node", level);
-        selectedNode.GetComponent<MindMapNodeScript>().mindMapNode.children.Add(newNode);
-        go.GetComponent<MindMapNodeScript>().mindMapNode = newNode;
+        selectedNode.GetComponent<MindMapNodeScript>().node.children.Add(newNode);
+        go.GetComponent<MindMapNodeScript>().node = newNode;
         go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[level % nodeMaterials.Length];
         selectedNode.GetComponent<MindMapNodeScript>().rearrange();
 
