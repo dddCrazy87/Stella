@@ -53,7 +53,7 @@ public class MindMapController : MonoBehaviour
             Debug.Log("null");
             return;
         }
-        Debug.Log(selectedNode.name);
+        selectedNode.transform.rotation = Quaternion.identity;
         Transform go = Instantiate(nodePrefab, selectedNode.transform);
         int level = selectedNode.GetComponent<MindMapNodeScript>().mindMapNode.level + 1;
         MindMapNode newNode = new("new node", level);

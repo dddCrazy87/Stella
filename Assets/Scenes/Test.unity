@@ -901,6 +901,10 @@ MonoBehaviour:
   mindMapProjs: {fileID: 11400000, guid: b5a71895188c14ee99e35790d2bc877f, type: 2}
   selectedNode: {fileID: 0}
   nodePrefab: {fileID: 4520616765818558937, guid: aa79ff9281e414171a98ee6b1854c4b1, type: 3}
+  nodeMaterials:
+  - {fileID: 2100000, guid: 76e2343e3a8fb46278fbcdd856d9bf1d, type: 2}
+  - {fileID: 2100000, guid: 3bbdda3c6673f49178428b6f4297db2c, type: 2}
+  - {fileID: 2100000, guid: 563337dfded5146a3a0793310cc15316, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
