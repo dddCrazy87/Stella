@@ -7,8 +7,6 @@ using UnityEngine;
 public class MindMapNodeScript : MonoBehaviour
 {
     private MindMapController mindMapController;
-    [SerializeField] private GameObject canvas;
-    private string answer, question;
     [SerializeField] private float orbitRadius = 2f;
     [SerializeField] private int otherChildren = 0;
     [SerializeField] private float nodeBetween = 1.5f;
