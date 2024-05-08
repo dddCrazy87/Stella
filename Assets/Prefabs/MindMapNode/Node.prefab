@@ -227,5 +227,5 @@ MonoBehaviour:
   orbitRadius: 2
   otherChildren: 1
   nodeBetween: 0.8
-  revolveSpeed: 0.35
+  revolveSpeed: 0.2
   prevSelectedChild: 0

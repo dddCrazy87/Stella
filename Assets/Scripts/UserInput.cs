@@ -35,12 +35,12 @@ public class UserInput : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) && !isMoving_camera) {
             if (mindMapController.selectOther("previous")) {
-                mindMapController.revolveSelectedNode(1);
+                mindMapController.revolveSelectedNode(-1);
             }
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) && !isMoving_camera) {
             if (mindMapController.selectOther("next")) {
-                mindMapController.revolveSelectedNode(-1);
+                mindMapController.revolveSelectedNode(1);
             }
         }
     }

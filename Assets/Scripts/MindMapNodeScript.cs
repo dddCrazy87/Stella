@@ -30,7 +30,7 @@ public class MindMapNodeScript : MonoBehaviour
         float angleStep = 360f / (cnt-otherChildren);
         for(int i = otherChildren; i < cnt; i ++) {
             float angle = (i - otherChildren) * angleStep;
-            Vector3 pos = calculatePositionOnCircle(angle);
+            Vector3 pos = calculatePositionOnCircle(-angle);
             Transform go = transform.GetChild(i).transform;
             go.SetPositionAndRotation(pos, Quaternion.Euler(0, angle, 0));
         }
