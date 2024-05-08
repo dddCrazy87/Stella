@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 563337dfded5146a3a0793310cc15316, type: 2}
+  - {fileID: 2100000, guid: 52575d4694b19489fa8395640ff9b0c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -224,7 +224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a40749958594e6e873c46a14db2ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
   orbitRadius: 2
   otherChildren: 1
-  nodeBetween: 1.5
+  nodeBetween: 0.8
+  revolveSpeed: 0.35
+  prevSelectedChild: 0

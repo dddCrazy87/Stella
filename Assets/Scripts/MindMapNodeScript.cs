@@ -10,10 +10,13 @@ public class MindMapNodeScript : MonoBehaviour
     [SerializeField] private float orbitRadius = 2f;
     [SerializeField] private int otherChildren = 0;
     [SerializeField] private float nodeBetween = 1.5f;
+    [SerializeField] private float revolveSpeed = 1f;
     public MindMapNode node;
+    public int prevSelectedChild;
 
     private void Start() {
         mindMapController = findMindMapController(transform).GetComponent<MindMapController>();
+        prevSelectedChild = otherChildren;
     }
 
     private Transform findMindMapController (Transform currentTransform) {
@@ -40,8 +43,7 @@ public class MindMapNodeScript : MonoBehaviour
             float angle = (i - otherChildren) * angleStep;
             Vector3 pos = calculatePositionOnCircle(angle);
             Transform go = transform.GetChild(i).transform;
-            go.position = pos;
-            go.rotation = Quaternion.Euler(0, angle + rotation.eulerAngles.y, 0);
+            go.SetPositionAndRotation(pos, Quaternion.Euler(0, angle + rotation.eulerAngles.y, 0));
         }
     }
 
@@ -73,21 +75,51 @@ public class MindMapNodeScript : MonoBehaviour
 
     IEnumerator revolveCoroutine(int dir, float angleStep) {
         
-        Quaternion rotation = Quaternion.Euler(0, dir, 0);
+        Quaternion rotation = Quaternion.Euler(0, dir*revolveSpeed, 0);
         float start = transform.rotation.eulerAngles.y;
         float end = start;
         
         while (Math.Abs(end - start) < angleStep) {
             transform.rotation *= rotation;
-            end -= 1;
+            end -= revolveSpeed;
             yield return null;
         }
         rotation= Quaternion.Euler(0, start + angleStep * dir, 0);
         transform.rotation = rotation;
     }
 
+    public Transform getNextNode() {
+        int result = transform.GetSiblingIndex() + 1;
+        if (result >= transform.parent.childCount) {
+            result = otherChildren;
+        }
+        transform.parent.GetComponent<MindMapNodeScript>().prevSelectedChild = result;
+        return transform.parent.transform.GetChild(result);
+    }
+
+    public Transform getPrevNode() {
+        int result = transform.GetSiblingIndex() - 1;
+        if (result <= otherChildren - 1) {
+            result = transform.parent.childCount - 1;
+        }
+        transform.parent.GetComponent<MindMapNodeScript>().prevSelectedChild = result;
+        return transform.parent.transform.GetChild(result);
+    }
+
+    public Transform getChildNode() {
+        if (transform.childCount == otherChildren) {
+            return null;
+        }
+        return transform.GetChild(prevSelectedChild);
+    }
+
+    public Transform getFatherNode() {
+        return transform.parent;
+    }
+
     private void OnMouseDown() {
         print("now: " + node.text + " cnt: " + node.children.Count);
-        mindMapController.selectedNode = gameObject;
+        mindMapController.selectedNode = transform;
     }
 }
+
