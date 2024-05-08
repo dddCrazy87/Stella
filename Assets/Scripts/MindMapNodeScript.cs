@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class MindMapNodeScript : MonoBehaviour
 {
-    private MindMapController mindMapController;
     [SerializeField] private float orbitRadius = 2f;
     [SerializeField] private int otherChildren = 0;
     [SerializeField] private float nodeBetween = 1.5f;
@@ -15,17 +14,7 @@ public class MindMapNodeScript : MonoBehaviour
     public int prevSelectedChild;
 
     private void Start() {
-        mindMapController = findMindMapController(transform).GetComponent<MindMapController>();
         prevSelectedChild = otherChildren;
-    }
-
-    private Transform findMindMapController (Transform currentTransform) {
-        if (currentTransform.parent == null) {
-            return currentTransform;
-        }
-        else {
-            return findMindMapController(currentTransform.parent);
-        }
     }
 
     public void rearrange() {
@@ -43,7 +32,7 @@ public class MindMapNodeScript : MonoBehaviour
             float angle = (i - otherChildren) * angleStep;
             Vector3 pos = calculatePositionOnCircle(angle);
             Transform go = transform.GetChild(i).transform;
-            go.SetPositionAndRotation(pos, Quaternion.Euler(0, angle + rotation.eulerAngles.y, 0));
+            go.SetPositionAndRotation(pos, Quaternion.Euler(0, angle, 0));
         }
     }
 
@@ -119,7 +108,6 @@ public class MindMapNodeScript : MonoBehaviour
 
     private void OnMouseDown() {
         print("now: " + node.text + " cnt: " + node.children.Count);
-        mindMapController.selectedNode = transform;
     }
 }
 
