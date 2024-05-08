@@ -43,7 +43,12 @@ public class MindMapNodeScript : MonoBehaviour
     }
 
     private Coroutine coroutine;
+    private bool isCoroutineRunning = false;
     public void revolve(int dir) {
+
+        if (isCoroutineRunning) {
+            return;
+        }
         
         if (dir != 1 && dir != -1) {
             Debug.Log("parameter should be 1 or -1.");
@@ -63,7 +68,7 @@ public class MindMapNodeScript : MonoBehaviour
     }
 
     IEnumerator revolveCoroutine(int dir, float angleStep) {
-        
+        isCoroutineRunning = true;
         Quaternion rotation = Quaternion.Euler(0, dir*revolveSpeed, 0);
         float start = transform.rotation.eulerAngles.y;
         float end = start;
@@ -75,6 +80,7 @@ public class MindMapNodeScript : MonoBehaviour
         }
         rotation= Quaternion.Euler(0, start + angleStep * dir, 0);
         transform.rotation = rotation;
+        isCoroutineRunning = false;
     }
 
     public Transform getNextNode() {
