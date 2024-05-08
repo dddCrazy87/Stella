@@ -12,9 +12,15 @@ public class MindMapNodeScript : MonoBehaviour
     [SerializeField] private float revolveSpeed = 1f;
     public MindMapNode node;
     public int prevSelectedChild;
+    public string question;
 
     private void Start() {
         prevSelectedChild = otherChildren;
+    }
+
+    public void setData(MindMapNode nodeData, string questionData) {
+        node = nodeData;
+        question = questionData;
     }
 
     public void rearrange() {

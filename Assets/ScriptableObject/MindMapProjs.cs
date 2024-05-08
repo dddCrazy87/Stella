@@ -12,7 +12,7 @@ public class MindMapNode {
     public MindMapNode() {
         text = "root";
         level = 0;
-        questions = new string[] { "寫下你的主題" };
+        questions = generateQuestion();
         children = new();
     }
 

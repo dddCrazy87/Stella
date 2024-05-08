@@ -1,29 +1,34 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MindMapController : MonoBehaviour
 {
     public MindMapProjs mindMapProjs;
-    private MindMapNode rootNode;
+    private MindMapNode rootNodeData;
+    private Transform rootNodeTransform;
     public Transform selectedNode;
     [SerializeField] private Transform nodePrefab;
     [SerializeField] private Material[] nodeMaterials;
     [SerializeField] private float nodeBetween = 1.5f;
     [SerializeField] private int nodeOtherChildren = 0;
+    [SerializeField] private TextMeshProUGUI question, answer;
  
     void Start() {
-        rootNode = mindMapProjs.getCurrentProj();
-        generateMindMap(rootNode, transform);
+        rootNodeData = mindMapProjs.getCurrentProj();
+        generateMindMap(rootNodeData, transform);
     }
     
     private void generateMindMap(MindMapNode node, Transform father) {
         
         Transform go = Instantiate(nodePrefab, father);
         go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[0];
-        go.GetComponent<MindMapNodeScript>().node = rootNode;
-        selectedNode = go;
+        go.GetComponent<MindMapNodeScript>().setData(node, "寫下一個主題吧");
+        selectTheNode(go);
+        rootNodeTransform = go;
         generateMindMapRec(node, go);
     }
     
@@ -38,7 +43,7 @@ public class MindMapController : MonoBehaviour
         for (int i = 0; i < node.children.Count; i ++) {
             Transform childGo = Instantiate(nodePrefab, father);
             childGo.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[node.children[i].level % nodeMaterials.Length];
-            childGo.GetComponent<MindMapNodeScript>().node = node.children[i];
+            childGo.GetComponent<MindMapNodeScript>().setData(node.children[i], node.questions[i]);
             childrenGo.Add(childGo);
         }
         
@@ -78,11 +83,11 @@ public class MindMapController : MonoBehaviour
         Transform tr = null;
         switch (op) {
             case "previous":
-                if (selectedNode == transform.GetChild(1)) return false;
+                if (selectedNode == rootNodeTransform) return false;
                 tr = selectedNode.GetComponent<MindMapNodeScript>().getPrevNode();
                 break;
             case "next":
-                if (selectedNode == transform.GetChild(1)) return false;
+                if (selectedNode == rootNodeTransform) return false;
                 tr = selectedNode.GetComponent<MindMapNodeScript>().getNextNode();
                 break;
             case "child":
@@ -95,14 +100,18 @@ public class MindMapController : MonoBehaviour
                 break;
         }
         if (tr != null && tr != transform) {
-            selectedNode = tr;
-            print(selectedNode.GetComponent<MindMapNodeScript>().node.text);
+            selectTheNode(tr);
             return true;
         }
         else {
-            print("pass");
             return false;
         }
+    }
+
+    private void selectTheNode (Transform target) {
+        selectedNode = target;
+        question.text = selectedNode.GetComponent<MindMapNodeScript>().question;
+        answer.text = selectedNode.GetComponent<MindMapNodeScript>().node.text;
     }
 
     public Vector3 fixCameraPos(int dir) {
