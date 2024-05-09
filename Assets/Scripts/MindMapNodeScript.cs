@@ -49,15 +49,13 @@ public class MindMapNodeScript : MonoBehaviour
     }
 
     private Coroutine coroutine;
-    private bool isCoroutineRunning = false;
+    public bool isCoroutineRunning = false;
     public void revolve(int dir) {
 
         if (isCoroutineRunning) {
             return;
         }
-        
         if (dir != 1 && dir != -1) {
-            Debug.Log("parameter should be 1 or -1.");
             return;
         }
         if (transform.childCount <= otherChildren + 1) {
@@ -90,6 +88,9 @@ public class MindMapNodeScript : MonoBehaviour
     }
 
     public Transform getNextNode() {
+        if (transform.parent.GetComponent<MindMapNodeScript>().isCoroutineRunning) {
+            return null;
+        }
         int result = transform.GetSiblingIndex() + 1;
         if (result >= transform.parent.childCount) {
             result = otherChildren;
@@ -99,6 +100,9 @@ public class MindMapNodeScript : MonoBehaviour
     }
 
     public Transform getPrevNode() {
+        if (transform.parent.GetComponent<MindMapNodeScript>().isCoroutineRunning) {
+            return null;
+        }
         int result = transform.GetSiblingIndex() - 1;
         if (result <= otherChildren - 1) {
             result = transform.parent.childCount - 1;

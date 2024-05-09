@@ -54,23 +54,7 @@ public class MindMapController : MonoBehaviour
         }
     }
 
-    public void addNode() {
-
-        if (selectedNode == null) {
-            Debug.Log("null");
-            return;
-        }
-        selectedNode.transform.rotation = Quaternion.identity;
-        Transform go = Instantiate(nodePrefab, selectedNode.transform);
-        int level = selectedNode.GetComponent<MindMapNodeScript>().node.level + 1;
-        MindMapNode newNode = new("new node", level);
-        selectedNode.GetComponent<MindMapNodeScript>().node.children.Add(newNode);
-        go.GetComponent<MindMapNodeScript>().node = newNode;
-        go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[level % nodeMaterials.Length];
-        selectedNode.GetComponent<MindMapNodeScript>().rearrange();
-
-        printallnode(mindMapProjs.getCurrentProj());
-    }
+    
 
     public void revolveSelectedNode(int dir) {
         if (selectedNode.transform.parent == null) {

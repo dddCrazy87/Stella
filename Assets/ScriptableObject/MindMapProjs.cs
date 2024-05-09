@@ -10,7 +10,7 @@ public class MindMapNode {
     public List<MindMapNode> children;
 
     public MindMapNode() {
-        text = "root";
+        text = "";
         level = 0;
         questions = generateQuestion();
         children = new();
@@ -64,7 +64,7 @@ public class MindMapProjs : ScriptableObject
         }),
     };
 
-    public int currentProjIndex = 2;
+    public int currentProjIndex = 0;
 
     public MindMapNode getCurrentProj() {
         return mindMapProjs[currentProjIndex];
