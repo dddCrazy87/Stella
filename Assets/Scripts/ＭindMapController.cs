@@ -37,7 +37,14 @@ public class MindMapController : MonoBehaviour
             selectedNode.GetComponent<MindMapNodeScript>().rearrange();
         }
         else {
-            
+            Transform go1 = Instantiate(nodePrefab, selectedNode.parent);
+            Transform go2 = Instantiate(nodePrefab, selectedNode);
+            MindMapNode newNode1 = selectedNode.parent.GetComponent<MindMapNodeScript>().node.addEmptyChildren();
+            MindMapNode newNode2 = selectedNode.GetComponent<MindMapNodeScript>().node.changeAnswer(answerText);
+            go1.GetComponent<MindMapNodeScript>().setData(newNode1);
+            go2.GetComponent<MindMapNodeScript>().setData(newNode2);
+            selectedNode.parent.GetComponent<MindMapNodeScript>().rearrange();
+            selectedNode.GetComponent<MindMapNodeScript>().rearrange();
         }
     }
     

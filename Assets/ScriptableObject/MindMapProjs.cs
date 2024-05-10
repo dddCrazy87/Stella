@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
 
 public class MindMapNode {
     public string text;
@@ -50,8 +51,9 @@ public class MindMapNode {
         return children[0];
     }
 
-    public void addEmptyChildren() {
+    public MindMapNode addEmptyChildren() {
         children.Add(new("", childQuestions[children.Count], level+1));
+        return children.Last();
     }
 }
 
