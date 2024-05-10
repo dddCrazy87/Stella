@@ -21,13 +21,31 @@ public class MindMapController : MonoBehaviour
     void Start() {
         rootNodeData = mindMapProjs.getCurrentProj();
         generateMindMap(rootNodeData, transform);
+        answer.onSubmit.AddListener(answerSubmit);
+    }
+
+    private void answerSubmit(string answerText) {
+        if (selectedNode == null) return;
+        if (selectedNode == rootNodeTransform) {
+            for (int i = nodeOtherChildren; i < selectedNode.childCount; i ++) {
+                Destroy(selectedNode.GetChild(i).gameObject);
+            }
+            Transform go = Instantiate(nodePrefab, selectedNode);
+            MindMapNode newNode = selectedNode.GetComponent<MindMapNodeScript>().node.changeAnswer(answerText);
+            go.GetComponent<MindMapNodeScript>().setData(newNode);
+            go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode.level % nodeMaterials.Length];
+            selectedNode.GetComponent<MindMapNodeScript>().rearrange();
+        }
+        else {
+            
+        }
     }
     
     private void generateMindMap(MindMapNode node, Transform father) {
         
         Transform go = Instantiate(nodePrefab, father);
         go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[0];
-        go.GetComponent<MindMapNodeScript>().setData(node, node.question);
+        go.GetComponent<MindMapNodeScript>().setData(node);
         selectTheNode(go);
         rootNodeTransform = go;
         generateMindMapRec(node, go);
@@ -44,7 +62,7 @@ public class MindMapController : MonoBehaviour
         for (int i = 0; i < node.children.Count; i ++) {
             Transform childGo = Instantiate(nodePrefab, father);
             childGo.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[node.children[i].level % nodeMaterials.Length];
-            childGo.GetComponent<MindMapNodeScript>().setData(node.children[i], node.children[i].question);
+            childGo.GetComponent<MindMapNodeScript>().setData(node.children[i]);
             childrenGo.Add(childGo);
         }
         
@@ -115,11 +133,14 @@ public class MindMapController : MonoBehaviour
         return result;
     }
 
-    private void printallnode(MindMapNode node) {
+    public void printallnode() {
+        printallnoderec(mindMapProjs.getCurrentProj());
+    }
+    private void printallnoderec(MindMapNode node) {
         print("text: " + node.text + " level: " + node.level + " children.Count: " + node.children.Count);
         if (node.children.Count <= 0) return;
         for (int i = 0; i < node.children.Count; i ++ ) {
-            printallnode(node.children[i]);
+            printallnoderec(node.children[i]);
         }
     }
 }

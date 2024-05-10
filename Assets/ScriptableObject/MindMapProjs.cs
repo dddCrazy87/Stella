@@ -14,6 +14,7 @@ public class MindMapNode {
     public MindMapNode() {
         text = "";
         level = 0;
+        question = "寫下一個主題吧！";
         children = new();
     }
 
@@ -21,7 +22,7 @@ public class MindMapNode {
         text = nodeText;
         level = nodeLevel;
         question = nodeQusetion;
-        children = new List<MindMapNode>();
+        children = new();
     }
 
     public MindMapNode(string nodeText, string nodeQusetion, int nodeLevel, List<MindMapNode> childrenNode) {
@@ -40,6 +41,17 @@ public class MindMapNode {
             "你對" + text + "的感想55555"
         };
         return result;
+    }
+
+    public MindMapNode changeAnswer(string answer) {
+        text = answer;
+        childQuestions = generateQuestion();
+        children = new List<MindMapNode> { new("", childQuestions[0], level + 1)};
+        return children[0];
+    }
+
+    public void addEmptyChildren() {
+        children.Add(new("", childQuestions[children.Count], level+1));
     }
 }
 

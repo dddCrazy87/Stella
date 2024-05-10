@@ -18,9 +18,9 @@ public class MindMapNodeScript : MonoBehaviour
         prevSelectedChild = otherChildren;
     }
 
-    public void setData(MindMapNode nodeData, string questionData) {
+    public void setData(MindMapNode nodeData) {
         node = nodeData;
-        question = questionData;
+        question = nodeData.question;
     }
 
     public void rearrange() {
@@ -123,7 +123,7 @@ public class MindMapNodeScript : MonoBehaviour
     }
 
     private void OnMouseDown() {
-        print("now: " + node.text + " cnt: " + node.children.Count);
+        //print("now: " + node.text + " cnt: " + node.children.Count);
     }
 }
 
