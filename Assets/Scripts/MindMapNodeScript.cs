@@ -25,16 +25,18 @@ public class MindMapNodeScript : MonoBehaviour
 
     public void rearrange() {
         Quaternion rotation = transform.rotation;
-        int cnt = transform.childCount;
+        int cnt = transform.childCount - otherChildren;
 
-        if (cnt <= otherChildren + 1) {
+        print(node.text + " " + transform.childCount);
+
+        if (cnt <= 1) {
             Vector3 pos = transform.position; pos.y -= nodeBetween;
             transform.GetChild(otherChildren).transform.SetPositionAndRotation(pos, rotation);
             return;
         }
 
-        float angleStep = 360f / (cnt-otherChildren);
-        for(int i = otherChildren; i < cnt; i ++) {
+        float angleStep = 360f / cnt;
+        for(int i = otherChildren; i < transform.childCount; i ++) {
             float angle = (i - otherChildren) * angleStep;
             Vector3 pos = calculatePositionOnCircle(-angle);
             Transform go = transform.GetChild(i).transform;
@@ -123,7 +125,7 @@ public class MindMapNodeScript : MonoBehaviour
     }
 
     private void OnMouseDown() {
-        //print("now: " + node.text + " cnt: " + node.children.Count);
+        print("now: " + node.text + " level:" + node.level + " cnt: " + node.children.Count);
     }
 }
 

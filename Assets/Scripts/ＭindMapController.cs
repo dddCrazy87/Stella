@@ -26,26 +26,33 @@ public class MindMapController : MonoBehaviour
 
     private void answerSubmit(string answerText) {
         if (selectedNode == null) return;
-        if (selectedNode == rootNodeTransform) {
+
+        if (selectedNode.childCount > nodeOtherChildren) {
+            List<Transform> trash = new();
             for (int i = nodeOtherChildren; i < selectedNode.childCount; i ++) {
-                Destroy(selectedNode.GetChild(i).gameObject);
+                trash.Add(selectedNode.GetChild(i));
             }
-            Transform go = Instantiate(nodePrefab, selectedNode);
-            MindMapNode newNode = selectedNode.GetComponent<MindMapNodeScript>().node.changeAnswer(answerText);
-            go.GetComponent<MindMapNodeScript>().setData(newNode);
-            go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode.level % nodeMaterials.Length];
-            selectedNode.GetComponent<MindMapNodeScript>().rearrange();
+            foreach (var item in trash) {
+                item.SetParent(selectedNode.GetChild(0));
+                Destroy(item.gameObject);
+            }
         }
-        else {
-            Transform go1 = Instantiate(nodePrefab, selectedNode.parent);
-            Transform go2 = Instantiate(nodePrefab, selectedNode);
-            MindMapNode newNode1 = selectedNode.parent.GetComponent<MindMapNodeScript>().node.addEmptyChildren();
-            MindMapNode newNode2 = selectedNode.GetComponent<MindMapNodeScript>().node.changeAnswer(answerText);
-            go1.GetComponent<MindMapNodeScript>().setData(newNode1);
+
+        Transform go = Instantiate(nodePrefab, selectedNode);
+        MindMapNode newNode = selectedNode.GetComponent<MindMapNodeScript>().node.changeAnswer(answerText);
+        go.GetComponent<MindMapNodeScript>().setData(newNode);
+        go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode.level % nodeMaterials.Length];
+        selectedNode.GetComponent<MindMapNodeScript>().rearrange();
+
+        if (selectedNode != rootNodeTransform) {
+            Transform go2 = Instantiate(nodePrefab, selectedNode.parent);
+            MindMapNode newNode2 = selectedNode.parent.GetComponent<MindMapNodeScript>().node.addEmptyChildren();
             go2.GetComponent<MindMapNodeScript>().setData(newNode2);
+            go2.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode2.level % nodeMaterials.Length];
             selectedNode.parent.GetComponent<MindMapNodeScript>().rearrange();
-            selectedNode.GetComponent<MindMapNodeScript>().rearrange();
         }
+        
+        print(selectedNode.GetComponent<MindMapNodeScript>().node.text);
     }
     
     private void generateMindMap(MindMapNode node, Transform father) {
