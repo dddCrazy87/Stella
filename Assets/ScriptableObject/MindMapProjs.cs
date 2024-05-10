@@ -6,27 +6,28 @@ using UnityEngine;
 public class MindMapNode {
     public string text;
     public int level;
-    public string[] questions;
+
+    public string question;
+    public string[] childQuestions;
     public List<MindMapNode> children;
 
     public MindMapNode() {
         text = "";
         level = 0;
-        questions = generateQuestion();
         children = new();
     }
 
-    public MindMapNode(string nodeText, int nodeLevel) {
+    public MindMapNode(string nodeText, string nodeQusetion, int nodeLevel) {
         text = nodeText;
         level = nodeLevel;
-        questions = generateQuestion();
+        question = nodeQusetion;
         children = new List<MindMapNode>();
     }
 
-    public MindMapNode(string nodeText, int nodeLevel, List<MindMapNode> childrenNode) {
+    public MindMapNode(string nodeText, string nodeQusetion, int nodeLevel, List<MindMapNode> childrenNode) {
         text = nodeText;
         level = nodeLevel;
-        questions = generateQuestion();
+        question = nodeQusetion;
         children = childrenNode;
     }
 
@@ -47,19 +48,15 @@ public class MindMapProjs : ScriptableObject
 {
     private MindMapNode[] mindMapProjs = new MindMapNode[] {
         new (),
-        new ("b", 0, new List<MindMapNode> {
-            new ("b.1", 1),
-            new ("b.2", 1)
-        }),
-        new ("c", 0, new List<MindMapNode> {
-            new ("c.1", 1, new List<MindMapNode> {
-                new ("c.1.1", 2)
+        new ("c", "寫下一個主題吧！", 0, new List<MindMapNode> {
+            new ("c.1", "你對C的感想是什麼？1", 1, new List<MindMapNode> {
+                new ("c.1.1", "你對C.1的感想是什麼？1", 2)
             }),
-            new ("c.2", 1),
-            new ("c.3", 1, new List<MindMapNode> {
-                new ("c.3.1", 2),
-                new ("c.3.2", 2),
-                new ("c.3.3", 2)
+            new ("c.2", "你對C的感想是什麼？2", 1),
+            new ("c.3", "你對C的感想是什麼？3", 1, new List<MindMapNode> {
+                new ("c.3.1", "你對C.3的感想是什麼？1", 2),
+                new ("c.3.2", "你對C.3的感想是什麼？2", 2),
+                new ("c.3.3", "你對C.3的感想是什麼？3", 2)
             })
         }),
     };

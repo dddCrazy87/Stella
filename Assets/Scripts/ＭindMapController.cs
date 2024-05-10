@@ -15,7 +15,8 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private Material[] nodeMaterials;
     [SerializeField] private float nodeBetween = 1.5f;
     [SerializeField] private int nodeOtherChildren = 0;
-    [SerializeField] private TextMeshProUGUI question, answer;
+    [SerializeField] private TextMeshProUGUI question;
+    [SerializeField] private TMP_InputField answer;
  
     void Start() {
         rootNodeData = mindMapProjs.getCurrentProj();
@@ -26,7 +27,7 @@ public class MindMapController : MonoBehaviour
         
         Transform go = Instantiate(nodePrefab, father);
         go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[0];
-        go.GetComponent<MindMapNodeScript>().setData(node, "寫下一個主題吧");
+        go.GetComponent<MindMapNodeScript>().setData(node, node.question);
         selectTheNode(go);
         rootNodeTransform = go;
         generateMindMapRec(node, go);
@@ -43,7 +44,7 @@ public class MindMapController : MonoBehaviour
         for (int i = 0; i < node.children.Count; i ++) {
             Transform childGo = Instantiate(nodePrefab, father);
             childGo.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[node.children[i].level % nodeMaterials.Length];
-            childGo.GetComponent<MindMapNodeScript>().setData(node.children[i], node.questions[i]);
+            childGo.GetComponent<MindMapNodeScript>().setData(node.children[i], node.children[i].question);
             childrenGo.Add(childGo);
         }
         

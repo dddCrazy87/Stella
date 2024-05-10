@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba0dcef73bec4341ac873ae9633bb55, type: 3}
   m_Name: MindMapProjs
   m_EditorClassIdentifier: 
-  currentProjIndex: 2
+  currentProjIndex: 1
