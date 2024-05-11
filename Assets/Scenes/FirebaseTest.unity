@@ -1557,9 +1557,9 @@ MonoBehaviour:
   firebaseManager: {fileID: 1997567042}
   inputEmail: {fileID: 114098552}
   inputPassword: {fileID: 1436685633}
-  panelLogin: {fileID: 0}
-  panelInfo: {fileID: 0}
-  textEmail: {fileID: 0}
+  panelLogin: {fileID: 1124333437}
+  panelInfo: {fileID: 664355998}
+  textEmail: {fileID: 994682658}
 --- !u!4 &1514856340
 Transform:
   m_ObjectHideFlags: 0
