@@ -1006,7 +1006,7 @@ Transform:
   m_GameObject: {fileID: 413602803}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 8.75}
+  m_LocalPosition: {x: 0, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2083,9 +2083,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf812e07f115048e4b4c0e5453f9cfcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera_EditingMindMap: {fileID: 413602803}
+  camera_EditingMindMap: {fileID: 413602804}
   mindMapController: {fileID: 2025185033}
-  cameraMoveSpeed: 4
+  cameraMoveYSpeed: 4
+  cameraMoveZSpeed: 10
 --- !u!4 &1285743720
 Transform:
   m_ObjectHideFlags: 0
@@ -2449,6 +2450,7 @@ MonoBehaviour:
   nodeOtherChildren: 1
   question: {fileID: 309294049}
   answer: {fileID: 490142043}
+  userInput: {fileID: 1285743719}
 --- !u!1 &2062371672
 GameObject:
   m_ObjectHideFlags: 0

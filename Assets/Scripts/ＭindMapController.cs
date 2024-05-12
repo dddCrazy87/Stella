@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,7 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private int nodeOtherChildren = 0;
     [SerializeField] private TextMeshProUGUI question;
     [SerializeField] private TMP_InputField answer;
+    [SerializeField] private UserInput userInput;
  
     void Start() {
         rootNodeData = mindMapProjs.getCurrentProj();
@@ -50,6 +52,9 @@ public class MindMapController : MonoBehaviour
         go.rotation = Quaternion.identity;
 
         if (selectedNode != rootNodeTransform) {
+            if (selectedNode.parent.childCount > nodeOtherChildren) {
+                userInput.fixCameraPosition();
+            }
             Transform go2 = Instantiate(nodePrefab, selectedNode.parent);
             MindMapNode newNode2 = selectedNode.parent.GetComponent<MindMapNodeScript>().node.addEmptyChildren();
             go2.GetComponent<MindMapNodeScript>().setData(newNode2);
