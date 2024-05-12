@@ -39,9 +39,8 @@ public class MindMapNodeScript : MonoBehaviour
             float angle = (i - otherChildren) * angleStep;
             Vector3 pos = calculatePositionOnCircle(-angle);
             Transform go = transform.GetChild(i).transform;
-            go.SetPositionAndRotation(pos, Quaternion.Euler(0, angle, 0));
+            go.SetPositionAndRotation(pos, Quaternion.identity);
         }
-        transform.rotation = rotation;
     }
 
     private Vector3 calculatePositionOnCircle(float angle) {
@@ -87,6 +86,12 @@ public class MindMapNodeScript : MonoBehaviour
         rotation= Quaternion.Euler(0, start + angleStep * dir, 0);
         transform.rotation = rotation;
         isCoroutineRunning = false;
+        Transform selectedNode = transform.GetChild(prevSelectedChild);
+        if (selectedNode.childCount > otherChildren) {
+            float angle = 360 / (selectedNode.childCount - otherChildren);
+            angle *= selectedNode.GetComponent<MindMapNodeScript>().prevSelectedChild - otherChildren;
+            selectedNode.rotation = Quaternion.Euler(0, angle, 0);
+        }
     }
 
     public Transform getNextNode() {

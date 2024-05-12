@@ -47,6 +47,7 @@ public class MindMapController : MonoBehaviour
         go.GetComponent<MindMapNodeScript>().setData(newNode);
         go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode.level % nodeMaterials.Length];
         selectedNode.GetComponent<MindMapNodeScript>().rearrange();
+        go.rotation = Quaternion.identity;
 
         if (selectedNode != rootNodeTransform) {
             Transform go2 = Instantiate(nodePrefab, selectedNode.parent);
@@ -54,9 +55,9 @@ public class MindMapController : MonoBehaviour
             go2.GetComponent<MindMapNodeScript>().setData(newNode2);
             go2.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode2.level % nodeMaterials.Length];
             selectedNode.parent.GetComponent<MindMapNodeScript>().rearrange();
+            float newAngle = 360/(selectedNode.parent.childCount-nodeOtherChildren)* -2;
+            selectedNode.parent.rotation = Quaternion.Euler(0, newAngle, 0);
         }
-        
-        print(selectedNode.GetComponent<MindMapNodeScript>().node.text);
     }
     
     private void generateMindMap(MindMapNode node, Transform father) {
@@ -64,7 +65,9 @@ public class MindMapController : MonoBehaviour
         Transform go = Instantiate(nodePrefab, father);
         go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[0];
         go.GetComponent<MindMapNodeScript>().setData(node);
-        selectTheNode(go);
+        selectedNode = go;
+        question.text = selectedNode.GetComponent<MindMapNodeScript>().question;
+        answer.text = selectedNode.GetComponent<MindMapNodeScript>().node.text;
         rootNodeTransform = go;
         generateMindMapRec(node, go);
     }
@@ -90,8 +93,6 @@ public class MindMapController : MonoBehaviour
             generateMindMapRec(node.children[i], childrenGo[i]);
         }
     }
-
-    
 
     public void revolveSelectedNode(int dir) {
         if (selectedNode.transform.parent == null) {
@@ -134,6 +135,7 @@ public class MindMapController : MonoBehaviour
         question.text = selectedNode.GetComponent<MindMapNodeScript>().question;
         answer.text = selectedNode.GetComponent<MindMapNodeScript>().node.text;
     }
+
 
     public Vector3 fixCameraPos(int dir) {
         if (dir != -1 && dir != 1) return new(0,0,0);
