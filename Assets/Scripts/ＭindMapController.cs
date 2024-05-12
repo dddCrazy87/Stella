@@ -24,6 +24,10 @@ public class MindMapController : MonoBehaviour
         answer.onSubmit.AddListener(answerSubmit);
     }
 
+    public void answerSubmitByButton() {
+        answerSubmit(answer.text);
+    }
+
     private void answerSubmit(string answerText) {
         if (selectedNode == null) return;
 
@@ -148,7 +152,8 @@ public class MindMapController : MonoBehaviour
     }
 
     public void printallnode() {
-        printallnoderec(mindMapProjs.getCurrentProj());
+        //printallnoderec(mindMapProjs.getCurrentProj());
+        print(selectedNode.GetComponent<MindMapNodeScript>().node.text);
     }
     private void printallnoderec(MindMapNode node) {
         print("text: " + node.text + " level: " + node.level + " children.Count: " + node.children.Count);

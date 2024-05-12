@@ -25,9 +25,8 @@ public class MindMapNodeScript : MonoBehaviour
 
     public void rearrange() {
         Quaternion rotation = transform.rotation;
+        transform.rotation = Quaternion.identity;
         int cnt = transform.childCount - otherChildren;
-
-        print(node.text + " " + transform.childCount);
 
         if (cnt <= 1) {
             Vector3 pos = transform.position; pos.y -= nodeBetween;
@@ -42,6 +41,7 @@ public class MindMapNodeScript : MonoBehaviour
             Transform go = transform.GetChild(i).transform;
             go.SetPositionAndRotation(pos, Quaternion.Euler(0, angle, 0));
         }
+        transform.rotation = rotation;
     }
 
     private Vector3 calculatePositionOnCircle(float angle) {
@@ -125,7 +125,7 @@ public class MindMapNodeScript : MonoBehaviour
     }
 
     private void OnMouseDown() {
-        print("now: " + node.text + " level:" + node.level + " cnt: " + node.children.Count);
+        //print("now: " + node.text + " level:" + node.level + " cnt: " + node.children.Count);
     }
 }
 
