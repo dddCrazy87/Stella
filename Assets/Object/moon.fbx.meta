@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0c5b6cfbc0ac24991bd016a58ac81677
+guid: db2a558136b7747e5bd64639c25adfb6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: moon
+      name: MOON
     second: {fileID: 2100000, guid: 1d9609258c8dc47499b6b2524b5948e3, type: 2}
   materials:
     materialImportMode: 2
