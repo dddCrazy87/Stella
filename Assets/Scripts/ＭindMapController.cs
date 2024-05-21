@@ -19,6 +19,7 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI question;
     [SerializeField] private TMP_InputField answer;
     [SerializeField] private UserInput userInput;
+    [SerializeField] private GameObject stellaBtn, mapBtn, skyBtn, newBtn, backBtn;
  
     void Start() {
         rootNodeData = mindMapProjs.getCurrentProj();
@@ -32,6 +33,8 @@ public class MindMapController : MonoBehaviour
 
     private void answerSubmit(string answerText) {
         if (selectedNode == null) return;
+        if (answerText == null) return;
+        if (answerText == "") return;
 
         if (selectedNode.childCount > nodeOtherChildren) {
             List<Transform> trash = new();
@@ -42,6 +45,13 @@ public class MindMapController : MonoBehaviour
                 item.SetParent(selectedNode.GetChild(0));
                 Destroy(item.gameObject);
             }
+            selectedNode.GetComponent<MindMapNodeScript>().prevSelectedChild = nodeOtherChildren;
+        }
+        if (selectedNode != rootNodeTransform) {
+            string textTmp = selectedNode.GetComponent<MindMapNodeScript>().node.text;
+            if (selectedNode.parent.childCount == nodeOtherChildren + 1 && textTmp == "") {
+                userInput.fixCameraPosition();
+            }
         }
 
         Transform go = Instantiate(nodePrefab, selectedNode);
@@ -51,10 +61,7 @@ public class MindMapController : MonoBehaviour
         selectedNode.GetComponent<MindMapNodeScript>().rearrange();
         go.rotation = Quaternion.identity;
 
-        if (selectedNode != rootNodeTransform) {
-            if (selectedNode.parent.childCount > nodeOtherChildren) {
-                userInput.fixCameraPosition();
-            }
+        if (selectedNode != rootNodeTransform && selectedNode.GetSiblingIndex() == selectedNode.parent.childCount - 1) {
             Transform go2 = Instantiate(nodePrefab, selectedNode.parent);
             MindMapNode newNode2 = selectedNode.parent.GetComponent<MindMapNodeScript>().node.addEmptyChildren();
             go2.GetComponent<MindMapNodeScript>().setData(newNode2);
@@ -159,8 +166,8 @@ public class MindMapController : MonoBehaviour
     }
 
     public void printallnode() {
-        //printallnoderec(mindMapProjs.getCurrentProj());
-        print(selectedNode.GetComponent<MindMapNodeScript>().node.text);
+        printallnoderec(mindMapProjs.getCurrentProj());
+        //print(selectedNode.GetComponent<MindMapNodeScript>().node.text);
     }
     private void printallnoderec(MindMapNode node) {
         print("text: " + node.text + " level: " + node.level + " children.Count: " + node.children.Count);
