@@ -229,3 +229,5 @@ MonoBehaviour:
   nodeBetween: 0.8
   revolveSpeed: 0.2
   prevSelectedChild: 0
+  question: 
+  isCoroutineRunning: 0
