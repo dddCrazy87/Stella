@@ -10,7 +10,7 @@ public class SendButton : MonoBehaviour {
     [SerializeField] private float targetAlpha = 0.35f;
     [SerializeField] private float clickEffectSpeed = 0.004f;
     [SerializeField] private RectTransform sendButtonRope;
-    [SerializeField] private float curPosY = 455f;
+    [SerializeField] private float curPosY;
     [SerializeField] private float targetPosY = 420f;
     [SerializeField] private float pullEffectSpeed = 0.1f;
     private Color buttonColor;
@@ -20,7 +20,7 @@ public class SendButton : MonoBehaviour {
         buttonColor = buttonImg.color;
         isClickEffectPlaying = false;
         isPullEffectPlaying = false;
-        sendButtonRope.anchoredPosition =  new(sendButtonRope.anchoredPosition.x,curPosY);
+        curPosY = sendButtonRope.anchoredPosition.y;
     }
 
     private Coroutine sendClickEffect, ropePullEffect;
