@@ -27,6 +27,7 @@ public class SendButton : MonoBehaviour {
     public void OnSendButtonClick() {
         if (isClickEffectPlaying || isPullEffectPlaying) return;
         if (sendClickEffect != null) StopCoroutine(sendClickEffect);
+        if (ropePullEffect != null) StopCoroutine(sendClickEffect);
         sendClickEffect = StartCoroutine(SendClickEffect());
         ropePullEffect = StartCoroutine(RopePullEffect());
     }
