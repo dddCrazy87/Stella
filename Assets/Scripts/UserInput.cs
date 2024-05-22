@@ -55,4 +55,8 @@ public class UserInput : MonoBehaviour
         cameraMoveSpeed = cameraMoveZSpeed;
         //isMoving_camera = true;
     }
+
+    void Start() {
+        Application.targetFrameRate = 30;
+    }
 }

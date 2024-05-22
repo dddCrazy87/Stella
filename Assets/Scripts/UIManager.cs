@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
             end = saveBtnMask.GetChild(1).GetComponent<RectTransform>().anchoredPosition;
         }
         Vector2 norV = (end - start).normalized * editBtnsAnimSpeed;
-        while(Vector2.Distance(cur, end) > 1.5) {
+        while(Vector2.Distance(cur, end) > editBtnsAnimSpeed) {
             Vector2 savePos = cur + norV;
             cur += norV;
             saveBtn.anchoredPosition = savePos;
@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
             end = newBtnMask.GetChild(1).GetComponent<RectTransform>().anchoredPosition;
         }
         Vector2 norV = (end - start).normalized * editBtnsAnimSpeed;
-        while(Vector2.Distance(cur, end) > 1) {
+        while(Vector2.Distance(cur, end) > editBtnsAnimSpeed) {
             Vector2 newPos = cur + norV;
             cur += norV;
             newBtn.anchoredPosition = newPos;
@@ -103,7 +103,7 @@ public class UIManager : MonoBehaviour
             end = deleteBtnMask.GetChild(1).GetComponent<RectTransform>().anchoredPosition;
         }
         Vector2 norV = (end - start).normalized * editBtnsAnimSpeed;
-        while(Vector2.Distance(cur, end) > 1) {
+        while(Vector2.Distance(cur, end) > editBtnsAnimSpeed) {
             Vector2 newPos = cur + norV;
             cur += norV;
             deleteBtn.anchoredPosition = newPos;
