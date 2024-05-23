@@ -19,6 +19,13 @@ public class MindMapNode {
         children = new();
     }
 
+    public MindMapNode(MindMapNode node) {
+        text = node.text;
+        level = node.level;
+        question = node.question;
+        children = node.children;
+    }
+
     public MindMapNode(string nodeText, string nodeQusetion, int nodeLevel) {
         text = nodeText;
         level = nodeLevel;
@@ -60,24 +67,14 @@ public class MindMapNode {
 [CreateAssetMenu(fileName = "MindMapProjs", menuName = "ScriptableObj/MindMapProjs",order = 1)]
 public class MindMapProjs : ScriptableObject
 {
-    private MindMapNode[] mindMapProjs = new MindMapNode[] {
-        new (),
-        new ("c", "寫下一個主題吧！", 0, new List<MindMapNode> {
-            new ("c.1", "你對C的感想是什麼？1", 1, new List<MindMapNode> {
-                new ("c.1.1", "你對C.1的感想是什麼？1", 2)
-            }),
-            new ("c.2", "你對C的感想是什麼？2", 1),
-            new ("c.3", "你對C的感想是什麼？3", 1, new List<MindMapNode> {
-                new ("c.3.1", "你對C.3的感想是什麼？1", 2),
-                new ("c.3.2", "你對C.3的感想是什麼？2", 2),
-                new ("c.3.3", "你對C.3的感想是什麼？3", 2)
-            })
-        }),
-    };
+    public List<MindMapNode> mindMapProjs = new List<MindMapNode>{new()};
+    public MindMapNode editingProj = new();
 
-    public int currentProjIndex = 0;
+    // public MindMapNode getProj(int index) {
+    //     return mindMapProjs[index];
+    // }
 
-    public MindMapNode getCurrentProj() {
-        return mindMapProjs[currentProjIndex];
+    public void saveProj() {
+        mindMapProjs.Add(new(mindMapProjs[0]));
     }
 }

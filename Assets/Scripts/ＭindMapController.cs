@@ -22,7 +22,7 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private UserInput userInput;
  
     void Start() {
-        rootNodeData = mindMapProjs.getCurrentProj();
+        rootNodeData = mindMapProjs.editingProj;
         generateMindMap(rootNodeData, transform);
         answer.onSubmit.AddListener(answerSubmit);
     }
@@ -166,9 +166,10 @@ public class MindMapController : MonoBehaviour
     }
 
     public void printallnode() {
-        printallnoderec(mindMapProjs.getCurrentProj());
+        printallnoderec(mindMapProjs.editingProj);
         //print(selectedNode.GetComponent<MindMapNodeScript>().node.text);
     }
+
     private void printallnoderec(MindMapNode node) {
         print("text: " + node.text + " level: " + node.level + " children.Count: " + node.children.Count);
         if (node.children.Count <= 0) return;
