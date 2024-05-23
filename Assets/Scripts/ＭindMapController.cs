@@ -19,7 +19,6 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI question;
     [SerializeField] private TMP_InputField answer;
     [SerializeField] private UserInput userInput;
-    [SerializeField] private GameObject stellaBtn, mapBtn, skyBtn, newBtn, backBtn;
  
     void Start() {
         rootNodeData = mindMapProjs.getCurrentProj();

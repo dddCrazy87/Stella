@@ -3618,6 +3618,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855616841}
   m_CullTransparentMesh: 1
+--- !u!1 &902810239
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 902810240}
+  m_Layer: 0
+  m_Name: UserInputTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &902810240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902810239}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 584.0362, y: 1104.3569, z: -15.929695}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -4680,6 +4711,9 @@ MonoBehaviour:
   mindMapController: {fileID: 2025185033}
   cameraMoveYSpeed: 4
   cameraMoveZSpeed: 10
+  targetObject: {fileID: 0}
+  swipeThreshold: 50
+  moveDistance: {x: 1, y: 0, z: 0}
 --- !u!4 &1285743720
 Transform:
   m_ObjectHideFlags: 0
@@ -7202,11 +7236,6 @@ MonoBehaviour:
   question: {fileID: 309294049}
   answer: {fileID: 490142043}
   userInput: {fileID: 1285743719}
-  stellaBtn: {fileID: 0}
-  mapBtn: {fileID: 0}
-  skyBtn: {fileID: 0}
-  newBtn: {fileID: 0}
-  backBtn: {fileID: 0}
 --- !u!1 &2030769125
 GameObject:
   m_ObjectHideFlags: 0
@@ -7708,6 +7737,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1285743720}
+  - {fileID: 902810240}
   - {fileID: 1315349731}
   - {fileID: 705507995}
   - {fileID: 2025185032}
