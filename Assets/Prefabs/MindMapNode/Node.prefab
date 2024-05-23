@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a40749958594e6e873c46a14db2ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orbitRadius: 1.5
+  orbitRadius: 1.3
   otherChildren: 1
   nodeBetween: 0.8
   revolveSpeed: 250

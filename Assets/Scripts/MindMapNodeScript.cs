@@ -79,7 +79,7 @@ public class MindMapNodeScript : MonoBehaviour
         float start = transform.rotation.eulerAngles.y;
         float end = start;
         
-        while (Math.Abs(end - start) < angleStep) {
+        while (Math.Abs(end - start) < angleStep-speed) {
             transform.rotation *= rotation;
             end -= speed;
             yield return null;

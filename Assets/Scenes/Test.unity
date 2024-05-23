@@ -7532,6 +7532,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ee2d21efcdd9e43f5ad421345c8663aa, type: 2}
   - {fileID: 2100000, guid: 52575d4694b19489fa8395640ff9b0c1, type: 2}
   nodeBetween: 0.8
+  nodeRadius: 1.3
   nodeOtherChildren: 1
   question: {fileID: 309294049}
   answer: {fileID: 490142043}
