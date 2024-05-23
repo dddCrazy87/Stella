@@ -19,7 +19,7 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private int nodeOtherChildren = 0;
     [SerializeField] private TextMeshProUGUI question;
     [SerializeField] private TMP_InputField answer;
-    [SerializeField] private UserInput userInput;
+    [SerializeField] private Transform mmCamera;
  
     void Start() {
         rootNodeData = mindMapProjs.editingProj;
@@ -27,53 +27,14 @@ public class MindMapController : MonoBehaviour
         answer.onSubmit.AddListener(answerSubmit);
     }
 
-    public void answerSubmitByButton() {
-        answerSubmit(answer.text);
-    }
-
-    private void answerSubmit(string answerText) {
-        if (selectedNode == null) return;
-        if (answerText == null) return;
-        if (answerText == "") return;
-
-        if (selectedNode.childCount > nodeOtherChildren) {
-            List<Transform> trash = new();
-            for (int i = nodeOtherChildren; i < selectedNode.childCount; i ++) {
-                trash.Add(selectedNode.GetChild(i));
-            }
-            foreach (var item in trash) {
-                item.SetParent(selectedNode.GetChild(0));
-                Destroy(item.gameObject);
-            }
-            selectedNode.GetComponent<MindMapNodeScript>().prevSelectedChild = nodeOtherChildren;
-        }
-        if (selectedNode != rootNodeTransform) {
-            string textTmp = selectedNode.GetComponent<MindMapNodeScript>().node.text;
-            if (selectedNode.parent.childCount == nodeOtherChildren + 1 && textTmp == "") {
-                userInput.fixCameraPosition();
-            }
-        }
-
-        Transform go = Instantiate(nodePrefab, selectedNode);
-        MindMapNode newNode = selectedNode.GetComponent<MindMapNodeScript>().node.changeAnswer(answerText);
-        go.GetComponent<MindMapNodeScript>().setData(newNode);
-        go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode.level % nodeMaterials.Length];
-        selectedNode.GetComponent<MindMapNodeScript>().rearrange();
-        go.rotation = Quaternion.identity;
-
-        if (selectedNode != rootNodeTransform && selectedNode.GetSiblingIndex() == selectedNode.parent.childCount - 1) {
-            Transform go2 = Instantiate(nodePrefab, selectedNode.parent);
-            MindMapNode newNode2 = selectedNode.parent.GetComponent<MindMapNodeScript>().node.addEmptyChildren();
-            go2.GetComponent<MindMapNodeScript>().setData(newNode2);
-            go2.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode2.level % nodeMaterials.Length];
-            selectedNode.parent.GetComponent<MindMapNodeScript>().rearrange();
-            float newAngle = 360/(selectedNode.parent.childCount-nodeOtherChildren)* -2;
-            selectedNode.parent.rotation = Quaternion.Euler(0, newAngle, 0);
-        }
+    public void resetRootNode() {
+        Destroy(rootNodeTransform.gameObject);
+        rootNodeData = mindMapProjs.editingProj;
+        generateMindMap(rootNodeData, transform);
+        mmCamera.position = rootNodeTransform.position + new Vector3(0,0,3);
     }
     
     private void generateMindMap(MindMapNode node, Transform father) {
-        
         Transform go = Instantiate(nodePrefab, father);
         go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[0];
         go.GetComponent<MindMapNodeScript>().setData(node);
@@ -103,6 +64,51 @@ public class MindMapController : MonoBehaviour
         
         for (int i = 0; i < node.children.Count; i ++) {
             generateMindMapRec(node.children[i], childrenGo[i]);
+        }
+    }
+
+    // send answer
+    public void answerSubmitByButton() {
+        answerSubmit(answer.text);
+    }
+    private void answerSubmit(string answerText) {
+        if (selectedNode == null) return;
+        if (answerText == null) return;
+        if (answerText == "") return;
+
+        if (selectedNode.childCount > nodeOtherChildren) {
+            List<Transform> trash = new();
+            for (int i = nodeOtherChildren; i < selectedNode.childCount; i ++) {
+                trash.Add(selectedNode.GetChild(i));
+            }
+            foreach (var item in trash) {
+                item.SetParent(selectedNode.GetChild(0));
+                Destroy(item.gameObject);
+            }
+            selectedNode.GetComponent<MindMapNodeScript>().prevSelectedChild = nodeOtherChildren;
+        }
+        if (selectedNode != rootNodeTransform) {
+            string textTmp = selectedNode.GetComponent<MindMapNodeScript>().node.text;
+            if (selectedNode.parent.childCount == nodeOtherChildren + 1 && textTmp == "") {
+                mmCamera.position += new Vector3(0,0,nodeRadius);
+            }
+        }
+
+        Transform go = Instantiate(nodePrefab, selectedNode);
+        MindMapNode newNode = selectedNode.GetComponent<MindMapNodeScript>().node.changeAnswer(answerText);
+        go.GetComponent<MindMapNodeScript>().setData(newNode);
+        go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode.level % nodeMaterials.Length];
+        selectedNode.GetComponent<MindMapNodeScript>().rearrange();
+        go.rotation = Quaternion.identity;
+
+        if (selectedNode != rootNodeTransform && selectedNode.GetSiblingIndex() == selectedNode.parent.childCount - 1) {
+            Transform go2 = Instantiate(nodePrefab, selectedNode.parent);
+            MindMapNode newNode2 = selectedNode.parent.GetComponent<MindMapNodeScript>().node.addEmptyChildren();
+            go2.GetComponent<MindMapNodeScript>().setData(newNode2);
+            go2.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode2.level % nodeMaterials.Length];
+            selectedNode.parent.GetComponent<MindMapNodeScript>().rearrange();
+            float newAngle = 360/(selectedNode.parent.childCount-nodeOtherChildren)* -2;
+            selectedNode.parent.rotation = Quaternion.Euler(0, newAngle, 0);
         }
     }
 
@@ -166,7 +172,10 @@ public class MindMapController : MonoBehaviour
     }
 
     public void printallnode() {
-        printallnoderec(mindMapProjs.editingProj);
+        foreach (var item in mindMapProjs.mindMapProjs) {
+            printallnoderec(item);
+        }
+        //printallnoderec(mindMapProjs.editingProj);
         //print(selectedNode.GetComponent<MindMapNodeScript>().node.text);
     }
 

@@ -67,7 +67,7 @@ public class MindMapNode {
 [CreateAssetMenu(fileName = "MindMapProjs", menuName = "ScriptableObj/MindMapProjs",order = 1)]
 public class MindMapProjs : ScriptableObject
 {
-    public List<MindMapNode> mindMapProjs = new List<MindMapNode>{new()};
+    public List<MindMapNode> mindMapProjs = new List<MindMapNode>{};
     public MindMapNode editingProj = new();
 
     // public MindMapNode getProj(int index) {
@@ -75,6 +75,7 @@ public class MindMapProjs : ScriptableObject
     // }
 
     public void saveProj() {
-        mindMapProjs.Add(new(mindMapProjs[0]));
+        mindMapProjs.Add(new(editingProj));
+        editingProj = new();
     }
 }

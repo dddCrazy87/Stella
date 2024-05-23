@@ -85,24 +85,18 @@ public class UserInput : MonoBehaviour
     }
 
     void MoveRight() {
-        Debug.Log("Moved Right");
-
         if (mindMapController.selectOther("previous")) {
             mindMapController.revolveSelectedNode(-1);
         }
     }
 
     void MoveLeft() {
-        Debug.Log("Moved Left");
-
         if (mindMapController.selectOther("next")) {
             mindMapController.revolveSelectedNode(1);
         }
     }
 
     void MoveUp() {
-        Debug.Log("Moved Up");
-
         if (mindMapController.selectOther("child")) {
             cameraTargetPos = camera_EditingMindMap.position + mindMapController.fixCameraPos(-1);
             cameraMoveSpeed = cameraMoveYSpeed;
@@ -112,18 +106,11 @@ public class UserInput : MonoBehaviour
     }
 
     void MoveDown() {
-        Debug.Log("Moved Down");
-
         if (mindMapController.selectOther("father")) {
             cameraTargetPos = camera_EditingMindMap.position + mindMapController.fixCameraPos(1);
             cameraMoveSpeed = cameraMoveYSpeed;
             isMoving_camera = true;
         }
-    }
-
-    public void fixCameraPosition() {
-        camera_EditingMindMap.position = camera_EditingMindMap.position + new Vector3(0,0,mindMapController.nodeRadius);
-        cameraMoveSpeed = cameraMoveZSpeed;
     }
 
     void Start() {
