@@ -46,7 +46,7 @@ public class UserInput : MonoBehaviour
         }
 
         //touch
-        if (Input.touchCount > 0) {
+        if (!isMoving_camera && Input.touchCount > 0) {
 
             Touch touch = Input.GetTouch(0);
 
