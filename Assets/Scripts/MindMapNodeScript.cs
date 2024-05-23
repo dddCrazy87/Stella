@@ -74,13 +74,14 @@ public class MindMapNodeScript : MonoBehaviour
 
     IEnumerator revolveCoroutine(int dir, float angleStep) {
         isCoroutineRunning = true;
-        Quaternion rotation = Quaternion.Euler(0, dir*revolveSpeed, 0);
+        float speed = revolveSpeed * Time.deltaTime;
+        Quaternion rotation = Quaternion.Euler(0, dir*speed, 0);
         float start = transform.rotation.eulerAngles.y;
         float end = start;
         
         while (Math.Abs(end - start) < angleStep) {
             transform.rotation *= rotation;
-            end -= revolveSpeed;
+            end -= speed;
             yield return null;
         }
         rotation= Quaternion.Euler(0, start + angleStep * dir, 0);

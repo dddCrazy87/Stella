@@ -154,12 +154,12 @@ public class MindMapController : MonoBehaviour
         Vector3 result = new(0, dir * nodeBetween, 0);
         if (dir == 1) {
             if (selectedNode.childCount >= nodeOtherChildren + 2) {
-                result.z -= 2;
+                result.z -= 1.5f;
             }
         }
         if (dir == -1) {
             if (selectedNode.parent.childCount >= nodeOtherChildren + 2) {
-                result.z += 2;
+                result.z += 1.5f;
             }
         }
         return result;

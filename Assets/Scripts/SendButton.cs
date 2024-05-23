@@ -27,7 +27,7 @@ public class SendButton : MonoBehaviour {
     public void OnSendButtonClick() {
         if (isClickEffectPlaying || isPullEffectPlaying) return;
         if (sendClickEffect != null) StopCoroutine(sendClickEffect);
-        if (ropePullEffect != null) StopCoroutine(sendClickEffect);
+        if (ropePullEffect != null)  StopCoroutine(sendClickEffect);
         sendClickEffect = StartCoroutine(SendClickEffect());
         ropePullEffect = StartCoroutine(RopePullEffect());
     }
@@ -37,7 +37,7 @@ public class SendButton : MonoBehaviour {
         isClickEffectPlaying = true;
         float curA = 0f;
         while (targetAlpha - curA >= 0f) {
-            curA += clickEffectSpeed;
+            curA += clickEffectSpeed * Time.deltaTime;
             buttonColor.a = curA;
             buttonImg.color = buttonColor;
             yield return null;
@@ -52,13 +52,13 @@ public class SendButton : MonoBehaviour {
         isPullEffectPlaying = true;
         float curY = curPosY;
         while (curY - targetPosY >= 0f) {
-            curY -= pullEffectSpeed;
+            curY -= pullEffectSpeed * Time.deltaTime;
             sendButtonRope.anchoredPosition =  new(sendButtonRope.anchoredPosition.x,curY);
             yield return null;
         }
         curY = targetPosY;
         while (curPosY - curY >= 0f) {
-            curY += pullEffectSpeed;
+            curY += pullEffectSpeed * Time.deltaTime;
             sendButtonRope.anchoredPosition =  new(sendButtonRope.anchoredPosition.x,curY);
             yield return null;
         }

@@ -50,7 +50,7 @@ public class UserInput : MonoBehaviour
     }
 
     public void fixCameraPosition() {
-        camera_EditingMindMap.position = camera_EditingMindMap.position + new Vector3(0,0,3);
+        camera_EditingMindMap.position = camera_EditingMindMap.position + new Vector3(0,0,1.5f);
         //cameraTargetPos = camera_EditingMindMap.position + new Vector3(0,0,3);
         cameraMoveSpeed = cameraMoveZSpeed;
         //isMoving_camera = true;
