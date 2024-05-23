@@ -15,7 +15,7 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private Transform nodePrefab;
     [SerializeField] private Material[] nodeMaterials;
     [SerializeField] private float nodeBetween = 1.5f;
-    [SerializeField] private float nodeRadius = 1.5f;
+    [SerializeField] public float nodeRadius = 1.5f;
     [SerializeField] private int nodeOtherChildren = 0;
     [SerializeField] private TextMeshProUGUI question;
     [SerializeField] private TMP_InputField answer;
