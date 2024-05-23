@@ -1040,7 +1040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3892,7 +3892,7 @@ Transform:
   m_GameObject: {fileID: 1039953519}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 367.45563, y: 263.70065, z: -2.925}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5953,7 +5953,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.7745056, y: 9.119965}
+  m_AnchoredPosition: {x: -5.8, y: 6.7}
   m_SizeDelta: {x: 104.932, y: 104.932}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1579234573
@@ -7048,12 +7048,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonImg: {fileID: 170250402}
-  targetAlpha: 0
-  clickEffectSpeed: 1
+  targetAlpha: 0.25
+  clickEffectSpeed: 10
   sendButtonRope: {fileID: 1938786096}
   curPosY: 0
   targetPosY: 585
-  pullEffectSpeed: 5
+  pullEffectSpeed: 300
 --- !u!1 &1945260180
 GameObject:
   m_ObjectHideFlags: 0
@@ -7143,7 +7143,7 @@ MonoBehaviour:
   saveBtnMask: {fileID: 1826510211}
   newBtnMask: {fileID: 1855280462}
   deleteBtnMask: {fileID: 1900161016}
-  editBtnsAnimSpeed: 15
+  editBtnsAnimSpeed: 700
 --- !u!1 &2025185031
 GameObject:
   m_ObjectHideFlags: 0

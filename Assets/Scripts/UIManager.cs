@@ -60,8 +60,8 @@ public class UIManager : MonoBehaviour
             start = saveBtn.anchoredPosition;
             end = saveBtnMask.GetChild(1).GetComponent<RectTransform>().anchoredPosition;
         }
-        Vector2 norV = (end - start).normalized * editBtnsAnimSpeed;
-        while(Vector2.Distance(cur, end) > editBtnsAnimSpeed) {
+        Vector2 norV = (end - start).normalized * editBtnsAnimSpeed * Time.deltaTime;
+        while(Vector2.Distance(cur, end) > editBtnsAnimSpeed * Time.deltaTime) {
             Vector2 savePos = cur + norV;
             cur += norV;
             saveBtn.anchoredPosition = savePos;
@@ -81,8 +81,8 @@ public class UIManager : MonoBehaviour
             start = newBtn.anchoredPosition;
             end = newBtnMask.GetChild(1).GetComponent<RectTransform>().anchoredPosition;
         }
-        Vector2 norV = (end - start).normalized * editBtnsAnimSpeed;
-        while(Vector2.Distance(cur, end) > editBtnsAnimSpeed) {
+        Vector2 norV = (end - start).normalized * editBtnsAnimSpeed * Time.deltaTime;
+        while(Vector2.Distance(cur, end) > editBtnsAnimSpeed * Time.deltaTime) {
             Vector2 newPos = cur + norV;
             cur += norV;
             newBtn.anchoredPosition = newPos;
@@ -102,8 +102,8 @@ public class UIManager : MonoBehaviour
             start = deleteBtn.anchoredPosition;
             end = deleteBtnMask.GetChild(1).GetComponent<RectTransform>().anchoredPosition;
         }
-        Vector2 norV = (end - start).normalized * editBtnsAnimSpeed;
-        while(Vector2.Distance(cur, end) > editBtnsAnimSpeed) {
+        Vector2 norV = (end - start).normalized * editBtnsAnimSpeed * Time.deltaTime;
+        while(Vector2.Distance(cur, end) > editBtnsAnimSpeed * Time.deltaTime) {
             Vector2 newPos = cur + norV;
             cur += norV;
             deleteBtn.anchoredPosition = newPos;
