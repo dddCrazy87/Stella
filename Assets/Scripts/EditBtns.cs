@@ -8,8 +8,8 @@ public class EditBtns : MonoBehaviour
     [SerializeField] private MindMapController mindMapController;
 
     // save btn
-    public void OnClickSaveBtn() {
-        mindMapProjs.saveProj();
-        mindMapController.resetRootNode();
-    }
+    // public void OnClickSaveBtn() {
+    //     mindMapProjs.saveProj();
+    //     mindMapController.resetRootNode();
+    // }
 }

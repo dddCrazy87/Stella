@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class MindMapController : MonoBehaviour
 {
     public MindMapProjs mindMapProjs;
-    private MindMapNode rootNodeData;
+    private MindMapNode editingProj;
     private Transform rootNodeTransform;
     public Transform selectedNode;
     [SerializeField] private Transform nodePrefab;
@@ -20,17 +20,20 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI question;
     [SerializeField] private TMP_InputField answer;
     [SerializeField] private Transform mmCamera;
+    [SerializeField] private ProjsUIManager projsUIManager;
  
     void Start() {
-        rootNodeData = mindMapProjs.editingProj;
-        generateMindMap(rootNodeData, transform);
+        editingProj = new();
+        mindMapProjs.initCurProjIndex();
+        generateMindMap(editingProj, transform);
         answer.onSubmit.AddListener(answerSubmit);
     }
 
     public void resetRootNode() {
         Destroy(rootNodeTransform.gameObject);
-        rootNodeData = mindMapProjs.editingProj;
-        generateMindMap(rootNodeData, transform);
+        editingProj = new();
+        mindMapProjs.initCurProjIndex();
+        generateMindMap(editingProj, transform);
         mmCamera.position = rootNodeTransform.position + new Vector3(0,0,3);
     }
     
@@ -110,6 +113,23 @@ public class MindMapController : MonoBehaviour
             float newAngle = 360/(selectedNode.parent.childCount-nodeOtherChildren)* -2;
             selectedNode.parent.rotation = Quaternion.Euler(0, newAngle, 0);
         }
+    }
+
+    // save proj
+    public void OnClickSaveBtn() {
+        if (mindMapProjs.curProjIndex == -1) {
+            mindMapProjs.saveProj(editingProj);
+            projsUIManager.addNewProj();
+        }
+        else {
+            mindMapProjs.saveProj(editingProj);
+            projsUIManager.updateProjUI();
+        }
+    }
+
+    // new proj
+    public void OnClickNewBtn() {
+        resetRootNode();
     }
 
     public void revolveSelectedNode(int dir) {

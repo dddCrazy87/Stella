@@ -7,7 +7,7 @@ public class UserInput : MonoBehaviour
     [SerializeField] private Transform camera_EditingMindMap;
     [SerializeField] private MindMapController mindMapController;
     [SerializeField] private float cameraMoveYSpeed = 0.2f;
-    [SerializeField] private float cameraMoveZSpeed = 0.2f;
+    //[SerializeField] private float cameraMoveZSpeed = 0.2f;
     private float cameraMoveSpeed = 0f;
     private bool isMoving_camera = false;
     private Vector3 cameraTargetPos = new();

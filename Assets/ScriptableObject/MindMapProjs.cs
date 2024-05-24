@@ -68,14 +68,19 @@ public class MindMapNode {
 public class MindMapProjs : ScriptableObject
 {
     public List<MindMapNode> mindMapProjs = new List<MindMapNode>{};
-    public MindMapNode editingProj = new();
+    public int curProjIndex = -1;
 
-    // public MindMapNode getProj(int index) {
-    //     return mindMapProjs[index];
-    // }
+    public void initCurProjIndex() {
+        curProjIndex = -1;
+    }
 
-    public void saveProj() {
-        mindMapProjs.Add(new(editingProj));
-        editingProj = new();
+    public void saveProj(MindMapNode node) {
+        if (curProjIndex == -1) {
+            mindMapProjs.Add(new(node));
+            curProjIndex = mindMapProjs.Count - 1;
+        }
+        else {
+            mindMapProjs[curProjIndex] = new(node);
+        }
     }
 }
