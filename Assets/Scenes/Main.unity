@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4388746, g: 0.48707294, b: 0.5677994, a: 1}
+  m_IndirectSpecularColor: {r: 0.4387362, g: 0.4869135, b: 0.5676017, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3043,7 +3043,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &733117930
 Transform:
   m_ObjectHideFlags: 0
@@ -3212,13 +3212,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794884488}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.010719573, y: -0.0033020098, z: 0.010875055, w: 0.999878}
+  m_LocalPosition: {x: -0.02, y: -0.04, z: -1.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 413602804}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 1.232, y: -0.365, z: 1.242}
 --- !u!108 &794884490
 Light:
   m_ObjectHideFlags: 0
@@ -3232,7 +3232,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 0.89565814, g: 1, b: 0.759434, a: 1}
   m_Intensity: 1.5
-  m_Range: 40
+  m_Range: 20
   m_SpotAngle: 20
   m_InnerSpotAngle: 2
   m_CookieSize: 10
@@ -7061,7 +7061,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2025185032
 Transform:
   m_ObjectHideFlags: 0
@@ -7100,11 +7100,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 70bbcf9f16e204625932cca5fb7f6343, type: 2}
   - {fileID: 2100000, guid: 21eba12e535274036a880bbd9399d5fd, type: 2}
   nodeMaterialColors:
-  - {r: 0.83137256, g: 0.6862745, b: 0.21568628, a: 0}
-  - {r: 0.8284087, g: 0.8284087, b: 0.9811321, a: 0}
-  - {r: 0.54509807, g: 0.27058825, b: 0.07450981, a: 0}
-  - {r: 0, g: 0.4117647, b: 0.5803922, a: 0}
-  - {r: 0.8235294, g: 0.4117647, b: 0.11764706, a: 0}
+  - {r: 0.9716981, g: 0.8204432, b: 0.8577985, a: 0}
+  - {r: 0.9433962, g: 0.45171684, b: 0.43164828, a: 0}
+  - {r: 0.6981023, g: 0.6185475, b: 0.9433962, a: 0}
+  - {r: 0.6839622, g: 0.8301471, b: 1, a: 0}
+  - {r: 0.58686364, g: 0.7924528, b: 0.69259524, a: 0}
   nodeBetween: 0.8
   nodeRadius: 1.3
   nodeOtherChildren: 1
