@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -13,7 +11,19 @@ public class MindMapController : MonoBehaviour
     private Transform rootNodeTransform;
     public Transform selectedNode;
     [SerializeField] private Transform nodePrefab;
+    // [Serializable]
+    // private struct nodeMaterialData {
+    //     [SerializeField] private Material nodeMaterial;
+    //     [SerializeField] private Color[] colors;
+    //     [SerializeField] private float probability;
+    // }
+    
+    //[SerializeField] private nodeMaterialData[] nodeMaterials;
+
     [SerializeField] private Material[] nodeMaterials;
+    [SerializeField] private Color[] nodeMaterialColors;
+
+
     [SerializeField] private float nodeBetween = 1.5f;
     [SerializeField] public float nodeRadius = 1.5f;
     [SerializeField] private int nodeOtherChildren = 0;
@@ -39,7 +49,10 @@ public class MindMapController : MonoBehaviour
     
     private void generateMindMap(MindMapNode node, Transform father) {
         Transform go = Instantiate(nodePrefab, father);
-        go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[0];
+        Material material = new(nodeMaterials[Random.Range(0, nodeMaterials.Length)]) {
+            color = nodeMaterialColors[0]
+        };
+        go.GetChild(0).GetComponent<MeshRenderer>().material = material;
         go.GetComponent<MindMapNodeScript>().setData(node);
         selectedNode = go;
         question.text = selectedNode.GetComponent<MindMapNodeScript>().question;
@@ -58,7 +71,10 @@ public class MindMapController : MonoBehaviour
 
         for (int i = 0; i < node.children.Count; i ++) {
             Transform childGo = Instantiate(nodePrefab, father);
-            childGo.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[node.children[i].level % nodeMaterials.Length];
+            Material material = new(nodeMaterials[Random.Range(0, nodeMaterials.Length)]) {
+                color = nodeMaterialColors[node.children[i].level % nodeMaterialColors.Length]
+            };
+            childGo.GetChild(0).GetComponent<MeshRenderer>().material = material;
             childGo.GetComponent<MindMapNodeScript>().setData(node.children[i]);
             childrenGo.Add(childGo);
         }
@@ -100,7 +116,10 @@ public class MindMapController : MonoBehaviour
         Transform go = Instantiate(nodePrefab, selectedNode);
         MindMapNode newNode = selectedNode.GetComponent<MindMapNodeScript>().node.changeAnswer(answerText);
         go.GetComponent<MindMapNodeScript>().setData(newNode);
-        go.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode.level % nodeMaterials.Length];
+        Material material = new(nodeMaterials[Random.Range(0, nodeMaterials.Length)]) {
+            color = nodeMaterialColors[newNode.level % nodeMaterialColors.Length]
+        };
+        go.GetChild(0).GetComponent<MeshRenderer>().material = material;
         selectedNode.GetComponent<MindMapNodeScript>().rearrange();
         go.rotation = Quaternion.identity;
 
@@ -108,7 +127,10 @@ public class MindMapController : MonoBehaviour
             Transform go2 = Instantiate(nodePrefab, selectedNode.parent);
             MindMapNode newNode2 = selectedNode.parent.GetComponent<MindMapNodeScript>().node.addEmptyChildren();
             go2.GetComponent<MindMapNodeScript>().setData(newNode2);
-            go2.GetChild(0).GetComponent<MeshRenderer>().material = nodeMaterials[newNode2.level % nodeMaterials.Length];
+            Material material2 = new(nodeMaterials[Random.Range(0, nodeMaterials.Length)]) {
+                color = nodeMaterialColors[newNode2.level % nodeMaterialColors.Length]
+            };
+            go2.GetChild(0).GetComponent<MeshRenderer>().material = material2;
             selectedNode.parent.GetComponent<MindMapNodeScript>().rearrange();
             float newAngle = 360/(selectedNode.parent.childCount-nodeOtherChildren)* -2;
             selectedNode.parent.rotation = Quaternion.Euler(0, newAngle, 0);
