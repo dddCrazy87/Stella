@@ -20,5 +20,6 @@ public class UIManager2 : MonoBehaviour
     private void Start() {
         signupCanvas.SetActive(true);
         loginCanvas.SetActive(false);
+        Application.targetFrameRate = 30;
     }
 }
