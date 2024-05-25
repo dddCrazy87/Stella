@@ -113,10 +113,30 @@ public class UIManager : MonoBehaviour
         isEditBtnAnimPlaying += 1;
     }
 
+    // sky
+    [SerializeField] private GameObject skyUI;
+    [SerializeField] private GameObject qaUI;
+    [SerializeField] private GameObject editBtnsUI;
+    [SerializeField] private GameObject mmCamera;
+    public void OnClickSkyBtn() {
+        qaUI.SetActive(false);
+        editBtnsUI.SetActive(false);
+        mmCamera.SetActive(false);
+        skyUI.SetActive(true);
+    }
+
+    public void OnClickSkyUiBack() {
+        skyUI.SetActive(false);
+        qaUI.SetActive(true);
+        mmCamera.SetActive(true);
+        editBtnsUI.SetActive(true);
+    }
+
     private void Start() {
-        // userInfo
+        // start
         main.SetActive(true);
         userInfoUI.SetActive(false);
+        skyUI.SetActive(false);
 
         // to edit btn
         saveBtn = saveBtnMask.GetChild(0).GetComponent<RectTransform>();
@@ -131,4 +151,5 @@ public class UIManager : MonoBehaviour
         deleteBtnPos = deleteBtn.anchoredPosition;
         deleteBtn.anchoredPosition = deleteBtnMask.GetChild(1).GetComponent<RectTransform>().anchoredPosition;
     }
+
 }
