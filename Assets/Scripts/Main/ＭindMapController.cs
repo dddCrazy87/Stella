@@ -30,6 +30,7 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI question;
     [SerializeField] private TMP_InputField answer;
     [SerializeField] private Transform mmCamera;
+    private Vector3 mmCameraPosDefault;
     [SerializeField] private ProjsUIManager projsUIManager;
  
     void Start() {
@@ -37,6 +38,7 @@ public class MindMapController : MonoBehaviour
         mindMapProjs.initCurProjIndex();
         generateMindMap(editingProj, transform);
         answer.onSubmit.AddListener(answerSubmit);
+        mmCameraPosDefault = mmCamera.position;
     }
 
     public void resetRootNode() {
@@ -44,7 +46,7 @@ public class MindMapController : MonoBehaviour
         editingProj = new();
         mindMapProjs.initCurProjIndex();
         generateMindMap(editingProj, transform);
-        mmCamera.position = rootNodeTransform.position + new Vector3(0,0,3);
+        mmCamera.position = mmCameraPosDefault;
     }
     
     private void generateMindMap(MindMapNode node, Transform father) {

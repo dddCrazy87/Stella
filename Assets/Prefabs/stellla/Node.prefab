@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orbitRadius: 1.3
   otherChildren: 1
-  nodeBetween: 0.8
+  nodeBetween: 1.3
   revolveSpeed: 250
   prevSelectedChild: 0
   question: 

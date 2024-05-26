@@ -115,21 +115,19 @@ public class UIManager : MonoBehaviour
 
     // sky
     [SerializeField] private GameObject skyUI;
-    [SerializeField] private GameObject qaUI;
-    [SerializeField] private GameObject editBtnsUI;
-    [SerializeField] private GameObject mmCamera;
+    [SerializeField] private GameObject[] otherGo;
     public void OnClickSkyBtn() {
-        qaUI.SetActive(false);
-        editBtnsUI.SetActive(false);
-        mmCamera.SetActive(false);
+        foreach(GameObject go in otherGo) {
+            go.SetActive(false);
+        }
         skyUI.SetActive(true);
     }
 
     public void OnClickSkyUiBack() {
         skyUI.SetActive(false);
-        qaUI.SetActive(true);
-        mmCamera.SetActive(true);
-        editBtnsUI.SetActive(true);
+        foreach(GameObject go in otherGo) {
+            go.SetActive(true);
+        }
     }
 
     private void Start() {
