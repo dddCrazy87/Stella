@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4387362, g: 0.4869135, b: 0.5676017, a: 1}
+  m_IndirectSpecularColor: {r: 0.4388746, g: 0.48707294, b: 0.5677994, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3231,7 +3231,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.89565814, g: 1, b: 0.759434, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 3.5
   m_Range: 20
   m_SpotAngle: 20
   m_InnerSpotAngle: 2
@@ -7096,9 +7096,7 @@ MonoBehaviour:
   selectedNode: {fileID: 0}
   nodePrefab: {fileID: 4520616765818558937, guid: aa79ff9281e414171a98ee6b1854c4b1, type: 3}
   nodeMaterials:
-  - {fileID: 2100000, guid: 50c5a505d96df436b9b6ca6f0e416af2, type: 2}
-  - {fileID: 2100000, guid: 70bbcf9f16e204625932cca5fb7f6343, type: 2}
-  - {fileID: 2100000, guid: 21eba12e535274036a880bbd9399d5fd, type: 2}
+  - {fileID: 2100000, guid: 1d9609258c8dc47499b6b2524b5948e3, type: 2}
   nodeMaterialColors:
   - {r: 0.9716981, g: 0.8204432, b: 0.8577985, a: 0}
   - {r: 0.9433962, g: 0.45171684, b: 0.43164828, a: 0}
