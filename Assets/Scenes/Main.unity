@@ -2492,6 +2492,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mindMapProjs: {fileID: 11400000, guid: b5a71895188c14ee99e35790d2bc877f, type: 2}
+  mindMapController: {fileID: 2025185033}
+  uIManager: {fileID: 1963519257}
   projUIPrefab: {fileID: 5677959323426070865, guid: 5d486f3319f2d446a958e019055f63b7, type: 3}
   projUIBetweenSpace: 180
   curPos: -185
