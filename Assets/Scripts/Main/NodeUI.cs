@@ -15,7 +15,7 @@ public class NodeUI : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.GetComponent<MindMapNodeScript>().node.level == 0) {
-            //deleteBtn.interactable = false;
+            deleteBtn.interactable = false;
             updateingDelBtnState = false;
         }
         else {
@@ -46,13 +46,14 @@ public class NodeUI : MonoBehaviour
             }
         }
 
-        // if (updateingDelBtnState) {
-        //     if(selectedNode.childCount > nodeOtherChildren) {
-        //         deleteBtn.interactable = true;
-        //     }
-        //     else {
-        //         deleteBtn.interactable = false;
-        //     }
-        // }
+        if (updateingDelBtnState) {
+            if(selectedNode == null) return;
+            if(selectedNode.childCount > nodeOtherChildren) {
+                deleteBtn.interactable = true;
+            }
+            else {
+                deleteBtn.interactable = false;
+            }
+        }
     }
 }
