@@ -6,7 +6,6 @@ public class SwitchCharector : MonoBehaviour, IDragHandler, IEndDragHandler
 {
     [SerializeField] private RectTransform canvasRect;
     [SerializeField] private RectTransform headIcon;
-    [SerializeField] private float moveUnits = 10f;
     [SerializeField] private float startPosX = 25f;
     [SerializeField] private float endPosX = 1000f;
     [SerializeField] private float iconSpaceBetween = 975f;

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -32,6 +33,7 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private Transform mmCamera;
     private Vector3 mmCameraPosDefault;
     [SerializeField] private ProjsUIManager projsUIManager;
+    [SerializeField] private UserInput userInput;
  
     void Start() {
         editingProj = new();
@@ -154,6 +156,26 @@ public class MindMapController : MonoBehaviour
     // new proj
     public void OnClickNewBtn() {
         resetRootNode();
+    }
+
+    // delete a node
+    private Coroutine resetNodeChild;
+    public void DeleteSelectedNode() {
+        Transform toDestroy = selectedNode;
+        Destroy(toDestroy.gameObject);
+        selectOther("father");
+        userInput.cameraTargetPos = selectedNode.position + mmCameraPosDefault;
+        userInput.isMoving_camera = true;
+        if (resetNodeChild != null) StopCoroutine(ResetNodeChild());
+        resetNodeChild = StartCoroutine(ResetNodeChild());
+    }
+
+    private IEnumerator ResetNodeChild() {
+        yield return null;
+        yield return null;
+        yield return null;
+        selectedNode.GetComponent<MindMapNodeScript>().rearrange();
+        selectedNode.GetComponent<MindMapNodeScript>().prevSelectedChild -= 1;
     }
 
     public void revolveSelectedNode(int dir) {

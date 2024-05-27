@@ -9,8 +9,8 @@ public class UserInput : MonoBehaviour
     [SerializeField] private float cameraMoveYSpeed = 0.2f;
     //[SerializeField] private float cameraMoveZSpeed = 0.2f;
     private float cameraMoveSpeed = 0f;
-    private bool isMoving_camera = false;
-    private Vector3 cameraTargetPos = new();
+    public bool isMoving_camera = false;
+    public Vector3 cameraTargetPos = new();
 
     [Header("touch")]
     [SerializeField] float swipeThreshold = 50f;
