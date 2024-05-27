@@ -41,6 +41,7 @@ public class ProjsUIManager : MonoBehaviour
 
     public void selectProj(int id) {
         mindMapController.resetRootNode(mindMapProjs.mindMapProjs[id]);
+        mindMapProjs.curProjIndex = id;
         uIManager.userInfoToggle();
     }
 }

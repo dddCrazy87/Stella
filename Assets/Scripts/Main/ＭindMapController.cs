@@ -48,6 +48,7 @@ public class MindMapController : MonoBehaviour
         mindMapProjs.initCurProjIndex();
         generateMindMap(editingProj, transform);
         mmCamera.position = mmCameraPosDefault;
+        projName.text = node.text;
     }
     
     private void generateMindMap(MindMapNode node, Transform father) {
