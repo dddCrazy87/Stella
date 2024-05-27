@@ -7744,7 +7744,7 @@ MonoBehaviour:
   nodeRadius: 1.3
   nodeOtherChildren: 1
   question: {fileID: 309294049}
-  spacePerQuestionWord: 36
+  spacePerQuestionWord: 40
   maxQuestionWord: 12
   answer: {fileID: 490142043}
   mmCamera: {fileID: 413602804}
