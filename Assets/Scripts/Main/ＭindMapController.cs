@@ -27,6 +27,8 @@ public class MindMapController : MonoBehaviour
     [SerializeField] public float nodeRadius = 1.5f;
     [SerializeField] private int nodeOtherChildren = 0;
     [SerializeField] private TextMeshProUGUI question;
+    [SerializeField] private float spacePerQuestionWord = 40f;
+    [SerializeField] private int maxQuestionWord = 12;
     [SerializeField] private TMP_InputField answer;
     [SerializeField] private Transform mmCamera;
     private Vector3 mmCameraPosDefault;
@@ -60,6 +62,9 @@ public class MindMapController : MonoBehaviour
         go.GetComponent<MindMapNodeScript>().setData(node);
         selectedNode = go;
         question.text = selectedNode.GetComponent<MindMapNodeScript>().question;
+        if (question.text.Length > maxQuestionWord) {
+            question.GetComponent<DragCanvasObject>().minX = spacePerQuestionWord * (maxQuestionWord - question.text.Length);
+        }
         answer.text = selectedNode.GetComponent<MindMapNodeScript>().node.text;
         rootNodeTransform = go;
         generateMindMapRec(node, go);
@@ -226,6 +231,9 @@ public class MindMapController : MonoBehaviour
     private void selectTheNode (Transform target) {
         selectedNode = target;
         question.text = selectedNode.GetComponent<MindMapNodeScript>().question;
+        if (question.text.Length > maxQuestionWord) {
+            question.GetComponent<DragCanvasObject>().minX = spacePerQuestionWord * (maxQuestionWord - question.text.Length);
+        }
         answer.text = selectedNode.GetComponent<MindMapNodeScript>().node.text;
     }
 
