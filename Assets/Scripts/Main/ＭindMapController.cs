@@ -162,8 +162,9 @@ public class MindMapController : MonoBehaviour
     private Coroutine resetNodeChild;
     public void DeleteSelectedNode() {
         Transform toDestroy = selectedNode;
-        Destroy(toDestroy.gameObject);
         selectOther("father");
+        selectedNode.GetComponent<MindMapNodeScript>().node.children.Remove(toDestroy.GetComponent<MindMapNodeScript>().node);
+        Destroy(toDestroy.gameObject);
         userInput.cameraTargetPos = selectedNode.position + mmCameraPosDefault;
         userInput.isMoving_camera = true;
         if (resetNodeChild != null) StopCoroutine(ResetNodeChild());
@@ -175,7 +176,12 @@ public class MindMapController : MonoBehaviour
         yield return null;
         yield return null;
         selectedNode.GetComponent<MindMapNodeScript>().rearrange();
-        selectedNode.GetComponent<MindMapNodeScript>().prevSelectedChild -= 1;
+        if (selectedNode.GetComponent<MindMapNodeScript>().prevSelectedChild == nodeOtherChildren) {
+            selectedNode.GetComponent<MindMapNodeScript>().prevSelectedChild = selectedNode.childCount - 1;
+        }
+        else {
+            selectedNode.GetComponent<MindMapNodeScript>().prevSelectedChild -= 1;
+        }
     }
 
     public void revolveSelectedNode(int dir) {
@@ -238,10 +244,10 @@ public class MindMapController : MonoBehaviour
     }
 
     public void printallnode() {
-        foreach (var item in mindMapProjs.mindMapProjs) {
-            printallnoderec(item);
-        }
-        //printallnoderec(mindMapProjs.editingProj);
+        // foreach (var item in mindMapProjs.mindMapProjs) {
+        //     printallnoderec(item);
+        // }
+        printallnoderec(editingProj);
         //print(selectedNode.GetComponent<MindMapNodeScript>().node.text);
     }
 
