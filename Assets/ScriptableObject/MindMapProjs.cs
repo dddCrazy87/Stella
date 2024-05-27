@@ -15,7 +15,7 @@ public class MindMapNode {
     public MindMapNode() {
         text = "";
         level = 0;
-        question = "寫下一個主題吧！";
+        question = "寫下一個主題吧！寫下一個主題吧！寫下一個主題吧！寫下一個主題吧！";
         children = new();
     }
 
@@ -41,7 +41,8 @@ public class MindMapNode {
     }
 
     private string[] generateQuestion() {
-        string[] result = new string[5] {
+        string[] result = new string[6] {
+            "寫下一個主題主題主題主題主題主題主題主題主題主題主題主題",
             "你對" + text + "的感想11111",
             "你對" + text + "的感想22222",
             "你對" + text + "的感想33333",

@@ -29,6 +29,7 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI question;
     [SerializeField] private float spacePerQuestionWord = 40f;
     [SerializeField] private int maxQuestionWord = 12;
+    private float questionUIWidth;
     [SerializeField] private TMP_InputField answer;
     [SerializeField] private Transform mmCamera;
     private Vector3 mmCameraPosDefault;
@@ -37,6 +38,7 @@ public class MindMapController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI projName;
  
     void Start() {
+        questionUIWidth = question.rectTransform.rect.width;
         editingProj = new();
         mindMapProjs.initCurProjIndex();
         generateMindMap(editingProj, transform);
@@ -63,7 +65,17 @@ public class MindMapController : MonoBehaviour
         selectedNode = go;
         question.text = selectedNode.GetComponent<MindMapNodeScript>().question;
         if (question.text.Length > maxQuestionWord) {
-            question.GetComponent<DragCanvasObject>().minX = spacePerQuestionWord * (maxQuestionWord - question.text.Length);
+
+            float newWidth = questionUIWidth + (spacePerQuestionWord * (question.text.Length - maxQuestionWord));
+
+            question.rectTransform.sizeDelta = new 
+            Vector2(newWidth, question.rectTransform.rect.height);
+            
+            question.GetComponent<DragCanvasObject>().minX = spacePerQuestionWord * 
+            (maxQuestionWord - question.text.Length) + (spacePerQuestionWord * (question.text.Length - maxQuestionWord)/2);
+
+            question.GetComponent<DragCanvasObject>().maxX = spacePerQuestionWord * (question.text.Length - maxQuestionWord)/2;
+            question.rectTransform.anchoredPosition = new Vector2(spacePerQuestionWord * (question.text.Length - maxQuestionWord)/2, 0);
         }
         answer.text = selectedNode.GetComponent<MindMapNodeScript>().node.text;
         rootNodeTransform = go;
@@ -232,7 +244,17 @@ public class MindMapController : MonoBehaviour
         selectedNode = target;
         question.text = selectedNode.GetComponent<MindMapNodeScript>().question;
         if (question.text.Length > maxQuestionWord) {
-            question.GetComponent<DragCanvasObject>().minX = spacePerQuestionWord * (maxQuestionWord - question.text.Length);
+
+            float newWidth = questionUIWidth + (spacePerQuestionWord * (question.text.Length - maxQuestionWord));
+
+            question.rectTransform.sizeDelta = new 
+            Vector2(newWidth, question.rectTransform.rect.height);
+            
+            question.GetComponent<DragCanvasObject>().minX = spacePerQuestionWord * 
+            (maxQuestionWord - question.text.Length) + (spacePerQuestionWord * (question.text.Length - maxQuestionWord)/2);
+
+            question.GetComponent<DragCanvasObject>().maxX = spacePerQuestionWord * (question.text.Length - maxQuestionWord)/2;
+            question.rectTransform.anchoredPosition = new Vector2(spacePerQuestionWord * (question.text.Length - maxQuestionWord)/2, 0);
         }
         answer.text = selectedNode.GetComponent<MindMapNodeScript>().node.text;
     }
