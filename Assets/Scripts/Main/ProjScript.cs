@@ -13,4 +13,8 @@ public class ProjScript : MonoBehaviour
         projName = name;
         projNameUI.text = projName;
     }
+
+    public void selectProj() {
+        transform.parent.GetComponent<ProjsUIManager>().selectProj(projIndex);
+    }
 }

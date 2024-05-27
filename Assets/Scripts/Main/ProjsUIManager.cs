@@ -5,6 +5,8 @@ using UnityEngine;
 public class ProjsUIManager : MonoBehaviour
 {
     [SerializeField] private MindMapProjs mindMapProjs;
+    [SerializeField] private MindMapController mindMapController;
+    [SerializeField] private UIManager uIManager;
     [SerializeField] private RectTransform projUIPrefab;
     
     [SerializeField] private float projUIBetweenSpace = 180f;
@@ -35,5 +37,10 @@ public class ProjsUIManager : MonoBehaviour
         if (transform.childCount > 3) {
             dragCanvasObject.AddSpace(projUIBetweenSpace);
         }
+    }
+
+    public void selectProj(int id) {
+        mindMapController.resetRootNode(mindMapProjs.mindMapProjs[id]);
+        uIManager.userInfoToggle();
     }
 }

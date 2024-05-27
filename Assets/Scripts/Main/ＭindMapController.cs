@@ -23,8 +23,6 @@ public class MindMapController : MonoBehaviour
 
     [SerializeField] private Material[] nodeMaterials;
     [SerializeField] private Color[] nodeMaterialColors;
-
-
     [SerializeField] private float nodeBetween = 1.5f;
     [SerializeField] public float nodeRadius = 1.5f;
     [SerializeField] private int nodeOtherChildren = 0;
@@ -34,6 +32,7 @@ public class MindMapController : MonoBehaviour
     private Vector3 mmCameraPosDefault;
     [SerializeField] private ProjsUIManager projsUIManager;
     [SerializeField] private UserInput userInput;
+    [SerializeField] private TextMeshProUGUI projName;
  
     void Start() {
         editingProj = new();
@@ -43,9 +42,9 @@ public class MindMapController : MonoBehaviour
         mmCameraPosDefault = mmCamera.position;
     }
 
-    public void resetRootNode() {
+    public void resetRootNode(MindMapNode node) {
         Destroy(rootNodeTransform.gameObject);
-        editingProj = new();
+        editingProj = node;
         mindMapProjs.initCurProjIndex();
         generateMindMap(editingProj, transform);
         mmCamera.position = mmCameraPosDefault;
@@ -116,6 +115,9 @@ public class MindMapController : MonoBehaviour
                 mmCamera.position += new Vector3(0,0,nodeRadius);
             }
         }
+        else {
+            projName.text = answerText;
+        }
 
         Transform go = Instantiate(nodePrefab, selectedNode);
         MindMapNode newNode = selectedNode.GetComponent<MindMapNodeScript>().node.changeAnswer(answerText);
@@ -155,7 +157,7 @@ public class MindMapController : MonoBehaviour
 
     // new proj
     public void OnClickNewBtn() {
-        resetRootNode();
+        resetRootNode(new());
     }
 
     // delete a node

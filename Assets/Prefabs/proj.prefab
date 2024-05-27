@@ -309,7 +309,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3567212646901009062}
         m_TargetAssemblyTypeName: ProjScript, Assembly-CSharp
-        m_MethodName: switchProj
+        m_MethodName: selectProj
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
