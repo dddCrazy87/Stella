@@ -37,6 +37,6 @@ public class DragCanvasObject : MonoBehaviour, IDragHandler, IEndDragHandler
     }
 
     public void AddSpace(float space) {
-        minX = -318f;
+        minX = -357f;
     }
 }

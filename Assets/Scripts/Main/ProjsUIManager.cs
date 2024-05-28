@@ -10,7 +10,7 @@ public class ProjsUIManager : MonoBehaviour
     [SerializeField] private RectTransform projUIPrefab;
     
     [SerializeField] private float projUIBetweenSpace = 180f;
-    [SerializeField] private float curPos = -185f;
+    [SerializeField] private Vector2 curPos = new(-163f, 47f);
     [SerializeField] private DragCanvasObject dragCanvasObject;
 
     public void setProjsUI() {
@@ -29,8 +29,8 @@ public class ProjsUIManager : MonoBehaviour
 
     private void addProjUI(int id) {
         RectTransform tr = Instantiate(projUIPrefab, transform);
-        tr.anchoredPosition += new Vector2(curPos, 0);
-        curPos += projUIBetweenSpace;
+        tr.anchoredPosition += curPos;
+        curPos.x += projUIBetweenSpace;
         tr.GetComponent<ProjScript>().projIndex = id;
         tr.GetComponent<ProjScript>().setProjsNameUI(mindMapProjs.mindMapProjs[id].text);
 
