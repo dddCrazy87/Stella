@@ -1,4 +1,5 @@
-![Stella App Icon](Assets/Image/Stella app icon.png)
+![Stella App Icon](Assets/Image/Stella%20app%20icon.png)
+
 # Stella  
 一款以遊戲化方式學習「創意思考」的 App
 
